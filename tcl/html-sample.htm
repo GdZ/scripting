@@ -1,0 +1,629 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<TITLE>
+Topology A Related Configurations
+</TITLE>
+
+<META NAME="date" CONTENT="2011-04-04">
+<META NAME="keywords" CONTENT="Topology A package">
+
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../../stylesheet.css" TITLE="Style">
+
+<SCRIPT type="text/javascript">
+function windowTitle()
+{
+    if (location.href.indexOf('is-external=true') == -1) {
+        parent.document.title="Topology A Configs";
+    }
+}
+</SCRIPT>
+<NOSCRIPT>
+</NOSCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="white" onload="windowTitle();">
+<HR>
+
+
+<!-- ========= START OF TOP NAVBAR ======= -->
+<A NAME="navbar_top"><!-- --></A>
+<A HREF="#skip-navbar_top" title="Skip navigation links"></A>
+<TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
+<TR>
+<TD COLSPAN=2 BGCOLOR="#EEEEFF" CLASS="NavBarCell1">
+<A NAME="navbar_top_firstrow"><!-- --></A>
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY="">
+  <TR ALIGN="center" VALIGN="top">
+  <TD BGCOLOR="#FFFFFF" CLASS="NavBarCell1Rev"> &nbsp;<FONT CLASS="NavBarFont1Rev"><B>Config A</B></FONT>&nbsp;
+</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="H-config-B.html"><FONT CLASS="NavBarFont1"><B>Config B
+</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="H-config-C.html"><FONT CLASS="NavBarFont1"><B>Config C
+</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="H-config-D.html"><FONT CLASS="NavBarFont1"><B>Config D
+</B></FONT></A>&nbsp;</TD>
+  <TD BGCOLOR="#EEEEFF" CLASS="NavBarCell1">    <A HREF="H-config-E.html"><FONT CLASS="NavBarFont1"><B>Config E
+</B></FONT></A>&nbsp;</TD>
+  </TR>
+</TABLE>
+</TD>
+</TR>
+</TABLE>
+<A NAME="skip-navbar_top"></A>
+<!-- ========= END OF TOP NAVBAR ========= -->
+
+<HR>
+<H2>
+<center>
+Config A
+</center>
+</H2>
+
+<TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
+<TR BGCOLOR="#CCCCFF">
+<TD ALIGN="center" colspan=6>
+Service Routing Table for Clients
+</TD>
+<TR>
+</TR>
+<TR BGCOLOR="#CCCCFF">
+<TD ALIGN="center" rowspan=2 colspan=2>
+Client 1
+</TD>
+<TD ALIGN="center" colspan=2>
+IP Subnet
+</TD>
+<TD ALIGN="center" colspan=2>
+Geo-Location
+</TD>
+</TR>
+<TR BGCOLOR="#CCCCFF">
+<TD colspan=2>
+a.b.c.d
+</TD>
+<TD>
+latitude: x
+</TD>
+<TD>
+longtitude: y
+</TD>
+</TR>
+<TR BGCOLOR="#CCCCFF">
+<TD ALIGN="center" colspan=2>
+Delivery Service
+</TD>
+<TD ALIGN="center" colspan=4>
+CZ File
+</TD>
+</TR>
+<TR BGCOLOR="#CCCCFF">
+<TD ALIGN="center" colspan=2>
+we-auto
+</TD>
+<TD colspan=4>
+<a href> http://bulin-lnx.cisco.com/automation/testbed/topo-A/config-A-we-auto.xml </a>
+</TD>
+</TR>
+<TR>
+<TD align=center> SQ# </TD>
+<TD align=center> Routing Method </TD>
+<TD align=center colspan=4> SE List </TD>
+</TR>
+<TR>
+<TD align=center BGCOLOR="#ACCCFF"> 1. </TD>
+<TD ALIGN="left" rowspan=1>
+Explicit subnet match
+</TD>
+<TD ALIGN="left" rowspan=1>
+by network coverage in CZ file
+(no match. goto 2.)
+</TD>
+<TD ALIGN="left" rowspan=3>
+SE service availability
+(no SE with service. go to 4.)
+</TD>
+<TD ALIGN="left" BGCOLOR="#ACCCFF">
+Content based routing
+</TD>
+<TD BGCOLOR="#ACCCFF">
+Load based routing
+</TD>
+</TR>
+<TR>
+<TD align=center BGCOLOR="#ACCCFF"> 2. </TD>
+<TD>
+Network Proximity enabled?
+</TD>
+<TD ALIGN="left">
+by network proximity
+(no match. goto 3.)
+</TD>
+<TD ALIGN="left" rowspan=1 BGCOLOR="#ACCCFF">
+reorder by URL
+</TD>
+<TD rowspan=1 BGCOLOR="#ACCCFF">
+reorder by SE load
+</TD>
+</TR>
+<TR>
+<TD align=center BGCOLOR="#ACCCFF"> 3. </TD>
+<TD>
+Geo-location enabled?
+</TD>
+<TD ALIGN="left">
+by geo-location in CZ file
+(no match. goto 4.)
+</TD>
+<TD colspan=2 BGCOLOR="#ACCCFF">
+SE overloaded: goto 5.
+</TD>
+</TR>
+<TR>
+<TD align=center rowspan=2> 4. </TD>
+<TD rowspan=2>
+Last-resort allow all enabled?
+</TD>
+<TD colspan=4>
+enabled: goto 5.
+</TD>
+</tr>
+<tr>
+<TD colspan=4>
+not enabled: go to 6.
+</td>
+</tr>
+<tr>
+<TD align=center rowspan=2> 5. </TD>
+<TD rowspan=2>
+Last-resort alternate domain configured?
+</TD>
+<TD colspan=4>
+configured:
+redirect to <b>:alternate domain:</b>
+</TD>
+<TR>
+<TD colspan=4>
+not configured: redirect to <b>:origin server:</b>
+</TD>
+</TR>
+</TR>
+<tr>
+<TD align=center rowspan=2> 6. </TD>
+<TD rowspan=2>
+Last-resort error domain configured?
+</TD>
+<TD colspan=4>
+configured:
+redirect to <b>:error domain:</b>
+</TD>
+</TR>
+<TR>
+<TD colspan=4>
+not configured: goto 7.
+</TD>
+</TR>
+<tr>
+<TD align=center rowspan=1> 7. </TD>
+</TD>
+<TD colspan=5>
+send error message to client 1
+</TD>
+</TR>
+<TR>
+<TD colspan=6>
+Notes:
+</TD>
+<TR BGCOLOR="#CCCCFF">
+<TD ALIGN="center" colspan=2>
+Delivery Service
+</TD>
+<TD ALIGN="center" colspan=4>
+CZ File
+</TD>
+</TR>
+</TR>
+<TR BGCOLOR="#CCCCFF">
+<TD ALIGN="center" colspan=2>
+wmt-auto
+</TD>
+<TD colspan=4>
+<a href> http://bulin-lnx.cisco.com/automation/testbed/topo-A/config-A-wmt-auto.xml </a>
+</TD>
+</TR>
+<TR>
+<TD align=center> SQ# </TD>
+<TD align=center> Routing Method </TD>
+<TD align=center colspan=4> SE List </TD>
+</TR>
+<TR>
+<TD align=center BGCOLOR="#ACCCFF"> 1. </TD>
+<TD ALIGN="left" rowspan=1>
+Explicit subnet match
+</TD>
+<TD ALIGN="left" rowspan=1>
+by network coverage in CZ file
+(no match. goto 2.)
+</TD>
+<TD ALIGN="left" rowspan=3>
+SE service availability
+(no SE with service. go to 4.)
+</TD>
+<TD ALIGN="left" BGCOLOR="#ACCCFF">
+Content based routing
+</TD>
+<TD BGCOLOR="#ACCCFF">
+Load based routing
+</TD>
+</TR>
+<TR>
+<TD align=center BGCOLOR="#ACCCFF"> 2. </TD>
+<TD>
+Network Proximity enabled?
+</TD>
+<TD ALIGN="left">
+by network proximity
+(no match. goto 3.)
+</TD>
+<TD ALIGN="left" rowspan=1 BGCOLOR="#ACCCFF">
+reorder by URL
+</TD>
+<TD rowspan=1 BGCOLOR="#ACCCFF">
+reorder by SE load
+</TD>
+</TR>
+<TR>
+<TD align=center BGCOLOR="#ACCCFF"> 3. </TD>
+<TD>
+Geo-location enabled?
+</TD>
+<TD ALIGN="left">
+by geo-location in CZ file
+(no match. goto 4.)
+</TD>
+<TD colspan=2 BGCOLOR="#ACCCFF">
+SE overloaded: goto 5.
+</TD>
+</TR>
+<TR>
+<TD align=center rowspan=2> 4. </TD>
+<TD rowspan=2>
+Last-resort allow all enabled?
+</TD>
+<TD colspan=4>
+enabled: goto 5.
+</TD>
+</tr>
+<tr>
+<TD colspan=4>
+not enabled: go to 6.
+</td>
+</tr>
+<tr>
+<TD align=center rowspan=2> 5. </TD>
+<TD rowspan=2>
+Last-resort alternate domain configured?
+</TD>
+<TD colspan=4>
+configured:
+redirect to <b>:alternate domain:</b>
+</TD>
+<TR>
+<TD colspan=4>
+not configured: redirect to <b>:origin server:</b>
+</TD>
+</TR>
+</TR>
+<tr>
+<TD align=center rowspan=2> 6. </TD>
+<TD rowspan=2>
+Last-resort error domain configured?
+</TD>
+<TD colspan=4>
+configured:
+redirect to <b>:error domain:</b>
+</TD>
+</TR>
+<TR>
+<TD colspan=4>
+not configured: goto 7.
+</TD>
+</TR>
+<tr>
+<TD align=center rowspan=1> 7. </TD>
+</TD>
+<TD colspan=5>
+send error message to client 1
+</TD>
+</TR>
+<TR>
+<TD colspan=6>
+Notes:
+</TD>
+</TR>
+<TR BGCOLOR="#CCCCFF">
+<TD ALIGN="center" rowspan=2 colspan=2>
+Client 2
+</TD>
+<TD ALIGN="center" colspan=2>
+IP Subnet
+</TD>
+<TD ALIGN="center" colspan=2>
+Geo-Location
+</TD>
+</TR>
+<TR BGCOLOR="#CCCCFF">
+<TD colspan=2>
+a.b.c.d
+</TD>
+<TD>
+latitude: x
+</TD>
+<TD>
+longtitude: y
+</TD>
+</TR>
+<TR BGCOLOR="#CCCCFF">
+<TD ALIGN="center" colspan=2>
+Delivery Service
+</TD>
+<TD ALIGN="center" colspan=4>
+CZ File
+</TD>
+</TR>
+<TR BGCOLOR="#CCCCFF">
+<TD ALIGN="center" colspan=2>
+we-auto
+</TD>
+<TD colspan=4>
+<a href> http://bulin-lnx.cisco.com/automation/testbed/topo-A/config-A-we-auto.xml </a>
+</TD>
+</TR>
+<TR>
+<TD align=center> SQ# </TD>
+<TD align=center> Routing Method </TD>
+<TD align=center colspan=4> SE List </TD>
+</TR>
+<TR>
+<TD align=center BGCOLOR="#ACCCFF"> 1. </TD>
+<TD ALIGN="left" rowspan=1>
+Explicit subnet match
+</TD>
+<TD ALIGN="left" rowspan=1>
+by network coverage in CZ file
+(no match. goto 2.)
+</TD>
+<TD ALIGN="left" rowspan=3>
+SE service availability
+(no SE with service. go to 4.)
+</TD>
+<TD ALIGN="left" BGCOLOR="#ACCCFF">
+Content based routing
+</TD>
+<TD BGCOLOR="#ACCCFF">
+Load based routing
+</TD>
+</TR>
+<TR>
+<TD align=center BGCOLOR="#ACCCFF"> 2. </TD>
+<TD>
+Network Proximity enabled?
+</TD>
+<TD ALIGN="left">
+by network proximity
+(no match. goto 3.)
+</TD>
+<TD ALIGN="left" rowspan=1 BGCOLOR="#ACCCFF">
+reorder by URL
+</TD>
+<TD rowspan=1 BGCOLOR="#ACCCFF">
+reorder by SE load
+</TD>
+</TR>
+<TR>
+<TD align=center BGCOLOR="#ACCCFF"> 3. </TD>
+<TD>
+Geo-location enabled?
+</TD>
+<TD ALIGN="left">
+by geo-location in CZ file
+(no match. goto 4.)
+</TD>
+<TD colspan=2 BGCOLOR="#ACCCFF">
+SE overloaded: goto 5.
+</TD>
+</TR>
+<TR>
+<TD align=center rowspan=2> 4. </TD>
+<TD rowspan=2>
+Last-resort allow all enabled?
+</TD>
+<TD colspan=4>
+enabled: goto 5.
+</TD>
+</tr>
+<tr>
+<TD colspan=4>
+not enabled: go to 6.
+</td>
+</tr>
+<tr>
+<TD align=center rowspan=2> 5. </TD>
+<TD rowspan=2>
+Last-resort alternate domain configured?
+</TD>
+<TD colspan=4>
+configured:
+redirect to <b>:alternate domain:</b>
+</TD>
+<TR>
+<TD colspan=4>
+not configured: redirect to <b>:origin server:</b>
+</TD>
+</TR>
+</TR>
+<tr>
+<TD align=center rowspan=2> 6. </TD>
+<TD rowspan=2>
+Last-resort error domain configured?
+</TD>
+<TD colspan=4>
+configured:
+redirect to <b>:error domain:</b>
+</TD>
+</TR>
+<TR>
+<TD colspan=4>
+not configured: goto 7.
+</TD>
+</TR>
+<tr>
+<TD align=center rowspan=1> 7. </TD>
+</TD>
+<TD colspan=5>
+send error message to client 1
+</TD>
+</TR>
+<TR>
+<TD colspan=6>
+Notes:
+</TD>
+</TR>
+<TR BGCOLOR="#CCCCFF">
+<TD ALIGN="center" colspan=2>
+Delivery Service
+</TD>
+<TD ALIGN="center" colspan=4>
+CZ File
+</TD>
+</TR>
+<TR BGCOLOR="#CCCCFF">
+<TD ALIGN="center" colspan=2>
+wmt-auto
+</TD>
+<TD colspan=4>
+<a href> http://bulin-lnx.cisco.com/automation/testbed/topo-A/config-A-wmt-auto.xml </a>
+</TD>
+</TR>
+<TR>
+<TD align=center> SQ# </TD>
+<TD align=center> Routing Method </TD>
+<TD align=center colspan=4> SE List </TD>
+</TR>
+<TR>
+<TD align=center BGCOLOR="#ACCCFF"> 1. </TD>
+<TD ALIGN="left" rowspan=1>
+Explicit subnet match
+</TD>
+<TD ALIGN="left" rowspan=1>
+by network coverage in CZ file
+(no match. goto 2.)
+</TD>
+<TD ALIGN="left" rowspan=3>
+SE service availability
+(no SE with service. go to 4.)
+</TD>
+<TD ALIGN="left" BGCOLOR="#ACCCFF">
+Content based routing
+</TD>
+<TD BGCOLOR="#ACCCFF">
+Load based routing
+</TD>
+</TR>
+<TR>
+<TD align=center BGCOLOR="#ACCCFF"> 2. </TD>
+<TD>
+Network Proximity enabled?
+</TD>
+<TD ALIGN="left">
+by network proximity
+(no match. goto 3.)
+</TD>
+<TD ALIGN="left" rowspan=1 BGCOLOR="#ACCCFF">
+reorder by URL
+</TD>
+<TD rowspan=1 BGCOLOR="#ACCCFF">
+reorder by SE load
+</TD>
+</TR>
+<TR>
+<TD align=center BGCOLOR="#ACCCFF"> 3. </TD>
+<TD>
+Geo-location enabled?
+</TD>
+<TD ALIGN="left">
+by geo-location in CZ file
+(no match. goto 4.)
+</TD>
+<TD colspan=2 BGCOLOR="#ACCCFF">
+SE overloaded: goto 5.
+</TD>
+</TR>
+<TR>
+<TD align=center rowspan=2> 4. </TD>
+<TD rowspan=2>
+Last-resort allow all enabled?
+</TD>
+<TD colspan=4>
+enabled: goto 5.
+</TD>
+</tr>
+<tr>
+<TD colspan=4>
+not enabled: go to 6.
+</td>
+</tr>
+<tr>
+<TD align=center rowspan=2> 5. </TD>
+<TD rowspan=2>
+Last-resort alternate domain configured?
+</TD>
+<TD colspan=4>
+configured:
+redirect to <b>:alternate domain:</b>
+</TD>
+<TR>
+<TD colspan=4>
+not configured: redirect to <b>:origin server:</b>
+</TD>
+</TR>
+</TR>
+<tr>
+<TD align=center rowspan=2> 6. </TD>
+<TD rowspan=2>
+Last-resort error domain configured?
+</TD>
+<TD colspan=4>
+configured:
+redirect to <b>:error domain:</b>
+</TD>
+</TR>
+<TR>
+<TD colspan=4>
+not configured: goto 7.
+</TD>
+</TR>
+<tr>
+<TD align=center rowspan=1> 7. </TD>
+</TD>
+<TD colspan=5>
+send error message to client 1
+</TD>
+</TR>
+<TR>
+<TD colspan=6>
+Notes:
+</TD>
+</TR>
+</TABLE>
+&nbsp;
+
+<P>
+
+<P>
+<p>
+</BODY>
+</HTML>
+

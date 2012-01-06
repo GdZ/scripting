@@ -1,0 +1,24 @@
+#!/bin/bash
+#\
+exec /usr/bin/expect "$0" ${1+"$@"}
+#
+spawn telnet [lindex $argv 0]
+#spawn telnet [lindex $argv 1]
+expect {login:}
+send "admin\n"
+expect {Password:}
+send "default\n"
+expect {#$}
+send "show version\n"
+expect {#$}
+send "show alarms\n"
+expect {#$}
+send "zzdebugshell\n"
+expect {debugshell}
+send "default\n"
+after 500
+send "ernst\n"
+expect {debugshell#}
+send "\/admin-shell\n"
+expect {#$}
+interact

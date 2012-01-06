@@ -1,0 +1,16 @@
+#!/bin/sh
+#\
+exec ~/ats/ats4.4.0/bin/expect "$0" ${1+"$@"}
+#
+#boxlogin.exp hostnamne/ip of the box
+spawn telnet [lindex $argv 1]
+expect {login:}
+send "admin\n"
+expect {Password:}
+send "default\n"
+expect {#$}
+send "show version\n"
+expect {#$}
+send "show alarms\n"
+expect {#$}
+interact

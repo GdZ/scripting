@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<CDNNetwork>
+<revision>1.0</revision>
+<coverageZone> 
+<location>
+	<latitude>-22.09</latitude>
+	<longitude>87</longitude>
+</location>
+<SE>U4-2S3-1</SE>
+<metric>15</metric>
+</coverageZone> 
+
+<coverageZone> 
+<location>
+	<latitude>30</latitude>
+	<longitude>30</longitude>
+</location>
+<SE>U4-2S6-1</SE>
+<metric>15</metric>
+</coverageZone> 
+
+</CDNNetwork>

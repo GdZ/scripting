@@ -1,0 +1,67 @@
+#!/bin/bash
+#This script is used to open some window to connect to testbed, workspace,etc
+
+echo "Hello to Sanity Testbed sessions"
+#gnome-terminal --window --title="CRDC_tmp" &
+#gnome-terminal --window --tab --title="CRDC_CDSM" --command="./boxlogin.exp 10.0.0.3" &
+#gnome-terminal --window --tab --title="CRDC_SR" --command="./boxlogin.exp 11.0.0.3" &
+#gnome-terminal --tab --title="CRDC_SE_A" --command="./boxlogin.exp 12.0.0.2" &
+#gnome-terminal --tab --title="CRDC_SE_E" --command="./boxlogin.exp 10.0.0.5" &
+if [ $# != 1 ]
+ then echo "Usage $0 Session# "
+echo " 1:CRDC3(auto-crdc3.com) "
+echo " 2:SJ(auto.com) "
+echo " 3:SJ220(auto-sj220.com)" 
+echo " 4:autolongevity "
+echo " 5:CRDC2(auto-crdc2.com) "
+echo " 6:SJ3(auto-sj3.com)"
+echo " 7:SJ4 (auto-sj4.com)" 
+else
+case $1 in 
+ 1) 
+gnome-terminal --tab --title="CRDC3_CDSM" --command="./boxlogin.exp 10.74.23.39" \
+	--tab --title="CRDC3_SR" --command="./boxlogin.exp 10.74.23.37" \
+	--tab --title="CRDC3_SE_A" --command="./boxlogin.exp 10.74.23.66" \
+	--tab --title="CRDC3_SE_E" --command="./boxlogin.exp 10.74.23.36" &
+#../ruby/test-cms.rb "10.74.23.39"
+;;
+2)
+gnome-terminal --tab --title="SJ_CDSM" --command="./boxlogin.exp 172.22.30.68" \
+	--tab --title="SJ_SR" --command="./boxlogin.exp 172.22.30.183" \
+	--tab --title="SJ_SE_A" --command="./boxlogin.exp 172.22.30.69" \
+	--tab --title="SJ_SE_E" --command="./boxlogin.exp 172.22.30.182" &
+;;
+3)
+gnome-terminal --tab --title="SJ220_CDSM" --command="./boxlogin.exp 172.22.96.78" \
+        --tab --title="SJ220_SR" --command="./boxlogin.exp 172.22.96.86" \
+        --tab --title="SJ220_SE_A" --command="./boxlogin.exp 172.22.96.85" \
+        --tab --title="SJ220_SE_E" --command="./boxlogin.exp 172.22.96.102" &
+;;
+4)
+gnome-terminal --tab --title="Longevity_CDSM" --command="./boxlogin.exp 172.22.28.158" \
+        --tab --title="SJLong_SR" --command="./boxlogin.exp 172.22.28.157" \
+        --tab --title="SJLong_SE_A" --command="./boxlogin.exp 172.22.30.88" \
+        --tab --title="SJLong_SE_E" --command="./boxlogin.exp 172.22.30.131" &
+;;
+5)
+gnome-terminal --tab --title="CRDC2_CDSM" --command="./boxlogin.exp 10.74.23.46" \
+        --tab --title="CRDC2_SR" --command="./boxlogin.exp 10.74.23.47" \
+        --tab --title="CRDC2_SE_A" --command="./boxlogin.exp 10.74.23.44" \
+        --tab --title="CRDC2_SE_E" --command="./boxlogin.exp 10.74.23.45" &
+#../ruby/test-cms.rb "10.74.23.46"
+;;
+
+6)
+gnome-terminal --tab --title="SJ3_CDSM" --command="./boxlogin.exp 172.22.96.212" \
+        --tab --title="SJ3_SR" --command="./boxlogin.exp 172.22.96.213" \
+        --tab --title="SJ3_SE_A" --command="./boxlogin.exp 172.22.96.83" \
+        --tab --title="SJ3_SE_E" --command="./boxlogin.exp 172.22.96.214" &
+;;
+7)
+gnome-terminal --tab --title="SJ4_CDSM" --command="./boxlogin.exp 172.22.28.232" \
+        --tab --title="SJ4_SR" --command="./boxlogin.exp 172.22.28.37" \
+        --tab --title="SJ4_SE_A" --command="./boxlogin.exp 172.22.28.101" \
+        --tab --title="SJ4_SE_E" --command="./boxlogin.exp 172.22.28.165" &
+;;
+esac
+fi
