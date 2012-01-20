@@ -1,5 +1,5 @@
-
-require 'patron'
+require "rubygems"
+require "patron"
 
 sess = Patron::Session.new
 sess.timeout = 10
