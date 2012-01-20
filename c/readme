@@ -1,0 +1,2 @@
+./http-wmt-get -u http://wmt-os.auto-sj5.com:8800/snowboard_100.wmv  -S 3.0
+gcc http-wmt-get.c -o http-wmt-get -lcurl
