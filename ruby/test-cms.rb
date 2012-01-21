@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require '/home/hailiang/workspace/scripting/ruby/cms_wb_api.rb'
+require './cms_wb_api.rb'
 
 #Login the CDSM
 #

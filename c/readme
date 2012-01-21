@@ -1,2 +1,23 @@
+Sample:
 ./http-wmt-get -u http://wmt-os.auto-sj5.com:8800/snowboard_100.wmv  -S 3.0
+Build:
 gcc http-wmt-get.c -o http-wmt-get -lcurl
+
+Features:
+1)	VOD only , live never tested
+2)	WMV, asf file are supported.
+3)	Fast-cache, Fast-start
+4)	SR redirect is suppoted
+
+Location:
+U4-LNX-2:/home/hailwang/ http-wmt-get
+Usage:
+./http-wmt-get -u http://wmt.auto-sj5.com/snowboard_100.wmv  -S 3.0
+
+So far, this binary is working on RHEL, with libcurl. Let me know if you want to deploy it to other type  Linux.
+
+Next, 
+
+Live streaming & Query String,  etc.
+
+
