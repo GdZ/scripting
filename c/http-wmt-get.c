@@ -7,11 +7,15 @@
 int end_of_stream = 0;
 char url[PATH_MAX];
 float speed = 1.0;
+int verbose = 0;
+long total_size = 0;
+
 void print_help ()
 {
 	fprintf (stderr, "usage: \n");
-	fprintf (stderr, "./programname -u URL -S 1.0 \n");
+	fprintf (stderr, "./programname -u URL -S 1.0 -V \n");
 	fprintf (stderr, "S: speed, it's optional\n");
+	fprintf (stderr, "-V,verbose it's optional\n");
 }
 static size_t cb_data(void *ptr, size_t size, size_t nmemb, void *stream)
 {
@@ -19,9 +23,19 @@ static size_t cb_data(void *ptr, size_t size, size_t nmemb, void *stream)
 	   so we only return the size we would have saved ... */ 
 	(void)ptr;  /* unused */ 
 	(void)stream; /* unused */ 
-	printf("-- Got data %lu Bytes -- \n", size * nmemb);
+	if(verbose) {
+		printf("-- Got data %lu Bytes -- \n", size * nmemb);
+
+		fflush(stdout);
+	}
+	else { 
+		printf("#");
+		fflush(stdout);
+	}
+	total_size += size * nmemb;
+	if(verbose) printf("Total data %lu Bytes Downloaded \n", total_size);
 	if((size_t)(size * nmemb) == 8 ) { 
-		printf("DEBUG : END of stream\r\n");
+		printf("\nEND of stream\n");
 		end_of_stream = 1;
 	}
 	return (size_t)(size * nmemb);
@@ -33,7 +47,7 @@ struct ResponseHeader {
 };
 static size_t cb_header(void *ptr, size_t size, size_t nmemb, void *uptr)
 {
-	printf("-- Got header %lu Bytes -- \n",(size_t)(size * nmemb));
+	if(verbose) printf("-- Got header %lu Bytes -- \n",(size_t)(size * nmemb));
 	struct ResponseHeader *rh = (struct ResponseHeader *) uptr;
 	char c_id[11];
 	c_id[10] = '\0';
@@ -52,10 +66,10 @@ static size_t cb_header(void *ptr, size_t size, size_t nmemb, void *uptr)
 		}
 		len = p1 -p;
 		len -= 10;//len of client-id=
-		printf("len of client id is %d \r\n",len);
+		//printf("len of client id is %d \r\n",len);
 		strncpy(c_id,p+10,len);
 		c_id[len] = '\0';
-		printf("show client-id: %s",c_id);
+		if(verbose) printf("client-id: %s",c_id);
 		strcpy(rh->client_id,c_id);
 
 	}
@@ -66,7 +80,7 @@ static size_t cb_header(void *ptr, size_t size, size_t nmemb, void *uptr)
 int parse_cli(int argc, char *argv [])
 {
 	int rget_opt = 0;
-	while((rget_opt = getopt(argc, argv, "u:S:")) != EOF)
+	while((rget_opt = getopt(argc, argv, "Vu:S:")) != EOF)
 	{
 		switch (rget_opt)
 		{
@@ -84,6 +98,9 @@ int parse_cli(int argc, char *argv [])
 					return -1;
 				}
 				sscanf(optarg,"%f",&speed);
+				break;
+			case 'V':
+				verbose = 1;
 				break;
 			default:
 				fprintf (stderr, "%s error: \r\n", __func__);
@@ -115,6 +132,8 @@ int main(int argc, char*argv[])
 	CURL *handles[HANDLECOUNT];
 	CURLM *multi_handle;
 	int still_running;
+	CURLMsg *msg; /* for picking up messages with the transfer status */ 
+	int msgs_left; /* how many messages are left */ 
 
 
 	CURL *curl;
@@ -141,17 +160,22 @@ int main(int argc, char*argv[])
 
 	if(CURLE_OK == res) {
 		char *ct;
+		long code;
+		res = curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &code);
+
+		if((CURLE_OK == res) && code)
+			printf("\nReceived HTTP Response Code: %lu\n", code);
 		/* ask for the content-type */ 
 		/* http://curl.haxx.se/libcurl/c/curl_easy_getinfo.html */ 
 		res = curl_easy_getinfo(curl, CURLINFO_CONTENT_TYPE, &ct);
 
 		if((CURLE_OK == res) && ct)
-			printf("We received Content-Type: %s\n", ct);
+			printf("Received Content-Type: %s\n", ct);
 	} else {
-		printf("We received Non-200 OK \n");
+		printf("ERROR:%s\n",curl_easy_strerror(res));
 
-		}
-	printf("client id is : %s \r\n", r0_client_id.client_id);
+	}
+	if(verbose) printf("client id is : %s \r\n", r0_client_id.client_id);
 	char line_cid[100];
 	char line_bw[128];
 	//line_cid = new char[strlen(r0_client_id.client_id)+1];
@@ -173,6 +197,10 @@ int main(int argc, char*argv[])
 	chunk = curl_slist_append(chunk,"Pragma: no-cache,rate=1.000,stream-time=0,stream-offset=4294967295:4294967295,packet-num=4294967295,max-duration=0");
 	res = curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
 	curl_easy_setopt(curl, CURLOPT_URL, url);
+	total_size = 0;//reset total size
+	//curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, progress);
+	//curl_easy_setopt(curl, CURLOPT_PROGRESSDATA, &prog);
+	//curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0L);
 	/* we want the headers to this file handle */ 
 	//curl_easy_setopt(curl,  CURLOPT_HEADERFUNCTION, cb_header);
 	//curl_easy_setopt(curl,  CURLOPT_WRITEHEADER, (void*)&r0_client_id);
@@ -250,6 +278,32 @@ int main(int argc, char*argv[])
 	//		if((CURLE_OK == res) && ct)
 	//			printf("We received Content-Type: %s\n", ct);
 	//	}
+
+
+	printf("Total data %lu Bytes Downloaded \n", total_size);
+
+	/* See how the transfers went */ 
+	while ((msg = curl_multi_info_read(multi_handle, &msgs_left))) {
+		if (msg->msg == CURLMSG_DONE) {
+			int idx, found = 0;
+
+			/* Find out which handle this message is about */ 
+			for (idx=0; idx<HANDLECOUNT; idx++) {
+				found = (msg->easy_handle == handles[idx]);
+				if(found)
+					break;
+			}
+
+			switch (idx) {
+				case HTTP_HANDLE:
+					printf("HTTP transfer completed with status %d\n", msg->data.result);
+					break;
+				default:
+					printf("Something Wrong %d\n", msg->data.result);
+					break;
+			}
+		}
+	}
 
 	curl_multi_cleanup(multi_handle);
 
