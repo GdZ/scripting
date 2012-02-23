@@ -1,0 +1,290 @@
+
+Release of  prototype version for CDSM/NAS configuration using selenium.
+You can integrate it with test automation framework.
+
+1)  Login client Linux box, 172.22.28.19, with login hailwang/hailwang
+2)  Cd ~/  ( will change it later)
+3)  Execute following commands to do what you want.
+4)  
+ruby ./cdsm-cmd.rb --cdsm 'https://u11-205-3:8443' --wdip 154.0.102.7 --brws ie --cmd 'ADD:NAS' --para 'method,Upload,uploadFile,C:\Documents and Settings\Administrator\My Documents\2.txt'
+ruby ./cdsm-cmd.rb --cdsm 'https://u11-205-3:8443' --wdip 154.0.102.7 --brws ie --cmd 'ADD:NAS' --para 'method,Import,FileInfo_OriginUrl,ftp://10.77.153.110/pub/Automation/NASCONFIG/NAS1.xml,FileInfo_DestinationPath,NAS1.xml,FileInfo_TTL,2'
+ruby ./cdsm-cmd.rb --cdsm 'https://u11-205-3:8443' --wdip 154.0.102.7 --brws ie --cmd 'DEL:NAS' --para '2.txt'
+ruby ./cdsm-cmd.rb --cdsm 'https://u11-205-3:8443' --wdip 154.0.102.7 --brws ie --cmd 'SET:NAS' --para '2.txt,method,Upload,uploadFile,C:\Documents and Settings\Administrator\My Documents\2.txt,FileInfo_DestinationPath,2again.txt'
+
+#CO
+--cmd 'ADD:CO'--para 'Name,test,OriginFqdn,1.2.3.4,Fqdn,cisco.com,ContentAffinityEnabled,0'
+
+--cmd 'GET:CO' --para 'test,Definition,OriginFqdn,Fqdn'
+--cmd 'SET:CO' --para 'test,OriginFqdn,12.0.0.125'
+--cmd 'GET:CO' --para 'test,Definition,OriginFqdn,Fqdn'
+--cmd 'GET:CO' --para 'test,Definition'
+--cmd 'DEL:CO' --para 'test'
+#
+#DS
+--cmd 'ADD:DS' --para 'Name,test-ds,WebSiteId,test,CacheQuota,200'
+--cmd 'ADD:DS' --para 'Name,test-ds,ContentOriginId,test,CacheQuota,200'
+--cmd 'ASS:DS' --para 'test-ds,,,U11-205-5,U11-220-3'
+--cmd 'ASS:DS' --para 'test-ds,U11-205-5,U11-205-5,U11-220-3'
+--cmd 'GET:DS' --para 'test-ds,Definition'
+--cmd 'SET:DS' --para 'test-ds,Definition,CacheQuota,500'
+--cmd 'GET:DS' --para 'test-ds,Definition,SkipEncryption,DeliveryQos,CacheQuota'
+--cmd 'GET:DS' --para 'test-ds,General Settings,Bitrate,HttpExt'
+--cmd 'DEL:DS' --para 'test-ds'
+
+# Live Program:
+--cmd ADD:PROGRAM --para 'name,test,serviceType,Windows Media Live,AutoDelete,1'
+--cmd GET:PROGRAM --para 'test,Live Streaming'
+--cmd GET:PROGRAM --para 'test,Definition'
+--cmd GET:PROGRAM --para 'test,Select Live Delivery Service'
+--cmd GET:PROGRAM --para 'test,Schedule'
+--cmd SET:PROGRAM --para 'test,Select Live Delivery Service,chSelect,0'
+--cmd SET:PROGRAM --para 'test,Live Streaming,liveSrc,http://1.2.3.4:8089,ucast,1,ucastUrl,http://wmt.auto-sj5.com/test.asx'
+--cmd SET:PROGRAM --para 'test,Schedule,schedOrNot,1,startMonth,February,startDay,26,repeatOrNot,1'
+
+#DG
+--cmd ADD:DG --para 'Name,test,Role,1,webgroup,1'
+--cmd ADD:DG --para 'test,U11-205-5,U11-220-4'
+--cmd DEL:DG --para 'test'
+
+If you want it to configure another CDSM, pls make sure:
+a)  If you wanna set browser type to IE, you have to use cdsm hostname to login, avoiding certification issue. Firefox is fine.
+When hostname is used, you may add hostname into /etc/hosts in windows PC 154.0.102.7
+b)  For NAS, 2 kinds of operation are supported. ADD, DEL, SET. 
+Documentation is not done yet. Pls follow these 4 samples first.
+
+
+
+Updated: it's more stable now.
+I saw 6 IE was opened and  2 of them showed  wrong domain name.  I guess at that time u111-205-3 was not added into /etc/hosts. Then IE-driver crashed, so you got Connection refuse msg.
+
+Now IE-driver has been started and you can try it again.  When you hit the same issue, pls login to 154.0.102.7 to start selenium-server .
+
+c:\clients>java -jar selenium-server-standalone-2.**.0.jar
+
+------------------------------------------------------------------------------------------------------------
+
+
+
+Input Type
+Text: 'Name','Text'
+    'HttpAllow','1' or 'HttpAllow','0'
+Checkbox: 'Name','1', or 'Name','0'
+Optionss: 'Name','optionaText'
+Radio: 'Name','indexOfRadio'
+
+How to dump all the parameters:
+Try to run 
+./cdsm-cmd.rb --cdsm 'https://u11-205-3:8443' --wdip 172.22.28.97 --brws ie --cmd 'GET:CO' --para 'Name,test'
+All parameters will be print out.
+
+----------------------------------------------------
+Content Origin
+
+----------------------------------------------------
+
+Legal parameters:
+---Input tag name : Name type: text
+---Input tag name : OriginFqdn type: text
+---Input tag name : Fqdn type: text
+---Input tag name : ContentAffinityEnabled type: checkbox
+---Select Option Name: NasFileInfoId
+---      Option Value:  Text: None
+---Select Option Name: AuthType
+---      Option Value:  Text: None
+---      Option Value:  Text: Basic Authentication
+---      Option Value:  Text: NTLM
+---      Option Value:  Text: Digest
+---      Option Value:  Text: Negotiate
+
+
+
+----------------------------------------------------
+Delivery Service
+
+----------------------------------------------------
+DS (General Settings):
+
+Input tag name : Bitrate type: text
+Input tag name : HttpAllow type: checkbox
+Input tag name : ContentFlowTrace type: checkbox
+Input tag name : FilterTraceFlowToClient type: checkbox
+Input tag name : HttpExtAllow type: checkbox
+Input tag name : HttpExt type: text
+Input tag name : GreenCookie type: text
+Input tag name : EnableCacheError type: checkbox
+Input tag name : CacheError type: text
+Input tag name : HashLevel type: text
+Input tag name : EnableAbrLive type: checkbox
+Input tag name : TmpfsSize type: text
+Input tag name : SkipLL type: checkbox
+Input tag name : WmtUserAgent type: text
+
+
+DS (Definition):
+
+Input tag name : Name type: text
+Input tag name : Live type: checkbox
+Input tag name : WebSiteId type: text
+Input tag name : CacheQuota type: text
+Input tag name : SkipEncryption type: checkbox
+Input tag name : noRootFailover type: checkbox
+Input tag name : SystemWideUnicastQos type: checkbox
+Input tag name : UnicastDataQos type: text
+Input tag name : DeliveryQos type: text
+
+----------------------------------------------------
+
+NAS
+
+----------------------------------------------------
+Type Options
+---Input tag name : uploadFile type: file
+---Input tag name : FileInfo_DestinationPath type: text
+---Select Option Name: method
+---      Option Value:  Text: Please make a choice
+---      Option Value:  Text: Import
+---      Option Value:  Text: Upload
+---Select Option Name: FileInfo_Type
+---      Option Value:  Text: Please make a choice
+---      Option Value:  Text: NAS Configuration File
+
+----------------------------------------------------
+
+Live Program
+
+----------------------------------------------------
+Live Program: create
+---Input tag name : name type: text
+---Input tag name : AutoDelete type: checkbox
+---Input tag name : BlockPerSchedule type: checkbox
+---Select Option Name: serviceType
+---      Option Value:  Text: Please make a choice
+---      Option Value:  Text: Movie Streamer Live
+---      Option Value:  Text: Movie Streamer Rebroadcast
+---      Option Value:  Text: Windows Media Live
+---      Option Value:  Text: Windows Media Rebroadcast
+
+Live Streaming:
+---Input tag name : liveSrc type: text
+---Input tag name : ucast type: checkbox
+---Input tag name : mcast type: checkbox
+---Input tag name : mcastToSe type: checkbox
+---Input tag name : nscReference type: text
+---Input tag name : mcastAddress type: text
+---Input tag name : mcastPort type: text
+---Input tag name : mcastTtl type: text
+---Select Option Name: ucastUrl
+---      Option Value:  Text: Please make a choice
+---Select Option Name: mcastUrl
+---      Option Value:  Text: Please make a choice
+
+Definition:
+
+---Input tag name : name type: text
+---Input tag name : AutoDelete type: checkbox
+---Input tag name : BlockPerSchedule type: checkbox
+
+
+Select Live Delivery Service
+---Input tag name : chSelect type: radio
+---Select Option Name: Rows
+---      Option Value:  Text: 10
+---      Option Value:  Text: 20
+---      Option Value:  Text: 40
+---      Option Value:  Text: ALL
+
+Schedule
+---Input tag name : schedOrNot type: radio
+---Input tag name : schedOrNot type: radio
+
+------------------------------------------------------
+                Device Group
+
+------------------------------------------------------
+---Input tag name : Name type: text
+---Input tag name : AutoAssignCe type: checkbox
+---Input tag name : Role type: radio
+---Input tag name : Role type: radio
+---Input tag name : webgroup type: checkbox
+---Input tag name : videogroup type: checkbox
+---Input tag name : platformgroup type: checkbox
+---Input tag name : chk_113 type: checkbox
+---Input tag name : chk_118 type: checkbox
+---Input tag name : chk_358 type: checkbox
+---Input tag name : chk_114 type: checkbox
+---Input tag name : chk_360 type: checkbox
+---Input tag name : chk_310 type: checkbox
+---Input tag name : chk_115 type: checkbox
+---Input tag name : chk_367 type: checkbox
+---Input tag name : chk_156 type: checkbox
+---Input tag name : chk_157 type: checkbox
+---Input tag name : chk_587 type: checkbox
+---Input tag name : chk_647 type: checkbox
+---Input tag name : chk_159 type: checkbox
+---Input tag name : chk_545 type: checkbox
+---Input tag name : chk_299 type: checkbox
+---Input tag name : chk_155 type: checkbox
+---Input tag name : chk_142 type: checkbox
+---Input tag name : chk_144 type: checkbox
+---Input tag name : chk_632 type: checkbox
+---Input tag name : chk_633 type: checkbox
+---Input tag name : chk_138 type: checkbox
+---Input tag name : chk_637 type: checkbox
+---Input tag name : chk_649 type: checkbox
+---Input tag name : chk_617 type: checkbox
+---Input tag name : chk_640 type: checkbox
+---Input tag name : chk_546 type: checkbox
+---Input tag name : chk_119 type: checkbox
+---Input tag name : chk_122 type: checkbox
+---Input tag name : chk_369 type: checkbox
+---Input tag name : chk_622 type: checkbox
+---Input tag name : chk_550 type: checkbox
+---Input tag name : chk_162 type: checkbox
+---Input tag name : chk_687 type: checkbox
+---Input tag name : chk_462 type: checkbox
+---Input tag name : chk_440 type: checkbox
+---Input tag name : chk_500 type: checkbox
+---Input tag name : chk_452 type: checkbox
+---Input tag name : chk_551 type: checkbox
+---Input tag name : chk_509 type: checkbox
+---Input tag name : chk_495 type: checkbox
+---Input tag name : chk_160 type: checkbox
+---Input tag name : chk_165 type: checkbox
+---Input tag name : chk_166 type: checkbox
+---Input tag name : chk_456 type: checkbox
+---Input tag name : chk_512 type: checkbox
+---Input tag name : chk_514 type: checkbox
+---Input tag name : chk_516 type: checkbox
+---Input tag name : chk_487 type: checkbox
+---Input tag name : chk_371 type: checkbox
+---Input tag name : chk_491 type: checkbox
+---Input tag name : chk_372 type: checkbox
+---Input tag name : chk_556 type: checkbox
+---Input tag name : chk_643 type: checkbox
+---Input tag name : chk_444 type: checkbox
+---Input tag name : chk_152 type: checkbox
+---Input tag name : chk_464 type: checkbox
+---Input tag name : chk_426 type: checkbox
+---Input tag name : chk_504 type: checkbox
+---Input tag name : chk_561 type: checkbox
+---Input tag name : chk_658 type: checkbox
+---Input tag name : chk_374 type: checkbox
+---Input tag name : chk_473 type: checkbox
+---Input tag name : chk_589 type: checkbox
+---Input tag name : chk_253 type: checkbox
+---Input tag name : chk_254 type: checkbox
+---Input tag name : chk_255 type: checkbox
+---Input tag name : chk_256 type: checkbox
+---Input tag name : chk_257 type: checkbox
+---Input tag name : chk_258 type: checkbox
+---Input tag name : chk_259 type: checkbox
+---Input tag name : chk_400 type: checkbox
+---Input tag name : chk_579 type: checkbox
+---Input tag name : chk_151 type: checkbox
+---Input tag name : chk_554 type: checkbox
+---Input tag name : chk_523 type: checkbox
+---Input tag name : chk_627 type: checkbox
+---Input tag name : chk_370 type: checkbox
+---Input tag name : chk_645 type: checkbox
+
+--------------------------------------------

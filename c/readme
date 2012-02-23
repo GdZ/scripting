@@ -28,5 +28,5 @@ Live streaming & Query String,  etc.
 
 Development tips:
 Binaray build on ubuntu is NOT working on RHEL.
-Progress is not working with multi.
+Curl Progress is not working with multi.
 

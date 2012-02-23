@@ -13,6 +13,15 @@ def usage()
 	puts "Usage:"
 	puts " [--help] [--cdsm https://1.2.3.4:8443] [--wdip 2.3.4.5 ] [--brws ie]"
 	puts " [--help] [--cmd ADD:NAS] [--para 'a,b,c,d']"
+    puts " cmd: Action includes: ADD,DEL,SET,GET,ASS"
+    puts " cmd: Object includes: CO,DS,NAS,DG,PROGRAM,SE"
+    puts " for example: assign se, 'ASS:SE'"
+    puts " --para format: if action is ADD, key/value pairs"
+    puts " if action is GET/SET, first parameter is the object name followed by key/value pairs"
+    puts " if action is DEL,parameter is the object name"
+    puts " when action is ASS:SE, first one is the object name, followed by ACQ SE,and list of SE"
+    puts " when action is ASS:DG, first one is the object name, followed by list of SE"
+
 end
 
 if ARGV.empty?
@@ -83,6 +92,8 @@ elsif cmd_name == 'SET'
     cmd_str = 'cdsm.' + 'modify'
 elsif cmd_name == 'GET'
     cmd_str = 'cdsm.' + 'get'
+elsif cmd_name == 'ASS'
+    cmd_str = 'cdsm.' + 'assign'
 end
 
 cmd_obj.downcase!
@@ -94,7 +105,7 @@ cmd_p.each do |p|
     cmd_str = cmd_str + p + ','
 end
 cmd_str = cmd_str.chop + ')'
-puts "CMD STR" + cmd_str
+puts "CMD STR : " + cmd_str
 
 #Limitation for IE
 #Due to certification issue, CDSM addr should be use fqdn, not ip.
@@ -104,28 +115,7 @@ puts "CMD STR" + cmd_str
 cdsm = CDSMWebDriver.new(wd_ip,browser,cdsm_url)
 cdsm.login(user,passwd)
 eval cmd_str
-#cdsm.get_co("flash-auto")
-#cdsm.set_co("flashdemo","OriginFqdn","12.0.0.125")
-#cdsm.get_co("flashdemo")
-#cdsm.get_ds("we-sanity")
-#cdsm.create_nas('Upload','uploadFile','C:\Documents and Settings\Administrator\My Documents\2.txt')
-#cdsm.del_nas('2.txt')
-#cdsm.modify_nas('2.txt','Upload','uploadFile','C:\Documents and Settings\Administrator\My Documents\2.txt','FileInfo_DestinationPath','2again.txt')
-#cdsm.modify_nas('2again.txt','Upload','uploadFile','C:\Documents and Settings\Administrator\My Documents\2.txt','FileInfo_DestinationPath','2.txt')
-#cdsm.create_nas('Import','FileInfo_OriginUrl','ftp://10.77.153.110/pub/Automation/NASCONFIG/NAS1.xml','FileInfo_DestinationPath','NAS1.xml','FileInfo_TTL','2')
-#valid parameters for NAS
-#hiddenconfigFileType
-
-#textFileInfo_OriginUrl
-#textFileInfo_DestinationPath
-#textFileInfo_TTL
-#textFileInfo_UserName
-#passwordFileInfo_Password
-#textFileInfo_Domain
-#checkboxFileInfo_DisableBasicAuth
-#hidden__checkbox_FileInfo_DisableBasicAuth
-
-#cdsm.get_syscfg_list
-sleep 3
 cdsm.logout()
+#wait for 5 s, Make sure teardown is fine.
+sleep 5
 cdsm.teardown()

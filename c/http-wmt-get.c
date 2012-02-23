@@ -1,8 +1,17 @@
+//
+// Copyright (c) 2012, Cisco Systems, Inc.
+//
+// Author: Herry Wang (hailwang@cisco.com)
+//
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <curl/curl.h>
+
+//char *url = "http://wmt-os.auto-sj5.com:8800/snowboard_100.wmv";
+//char *url = "http://U11-220-4.se.wmt.auto-sj5.com/snowboard_100.wmv";
 
 int end_of_stream = 0;
 char url[PATH_MAX];
@@ -14,7 +23,7 @@ void print_help ()
 {
 	fprintf (stderr, "usage: \n");
 	fprintf (stderr, "./programname -u URL -S 1.0 -V \n");
-	fprintf (stderr, "S: speed, it's optional\n");
+	fprintf (stderr, "-S: speed, it's optional\n");
 	fprintf (stderr, "-V,verbose it's optional\n");
 }
 static size_t cb_data(void *ptr, size_t size, size_t nmemb, void *stream)
@@ -29,12 +38,14 @@ static size_t cb_data(void *ptr, size_t size, size_t nmemb, void *stream)
 		fflush(stdout);
 	}
 	else { 
+        //Just print one # char once we get one packet
 		printf("#");
 		fflush(stdout);
 	}
 	total_size += size * nmemb;
 	if(verbose) printf("Total data %lu Bytes Downloaded \n", total_size);
 	if((size_t)(size * nmemb) == 8 ) { 
+        //FIXME, string should be extracted to comparing with EOS
 		printf("\nEND of stream\n");
 		end_of_stream = 1;
 	}
@@ -142,16 +153,22 @@ int main(int argc, char*argv[])
 
 	curl = curl_easy_init();
 	handles[0] = curl;
-	//char *url = "http://wmt-os.auto-sj5.com:8800/snowboard_100.wmv";
-	//char *url = "http://U11-220-4.se.wmt.auto-sj5.com/snowboard_100.wmv";
 
 	struct curl_slist *chunk = NULL;
 
 	chunk = curl_slist_append(chunk, "User-Agent: NSPlayer/11.0.5721.5251");
+    chunk = curl_slist_append(chunk, "X-Accept-Authentication: Negotiate, NTLM, Digest, Basic");
+    chunk = curl_slist_append(chunk, "Pragma: version11-enabled=1");
+    chunk = curl_slist_append(chunk, "Pragma: no-cache,rate=1.000,stream-time=0,stream-offset=0:0,packet-num=4294967295,max-duration=0");
+    chunk = curl_slist_append(chunk, "Pragma: packet-pair-experiment=1");
+    chunk = curl_slist_append(chunk, "Pragma: pipeline-experiment=1");
+    chunk = curl_slist_append(chunk, "Supported: com.microsoft.wm.srvppair, com.microsoft.wm.sswitch, com.microsoft.wm.predstrm, com.microsoft.wm.startupprofilea");
+    chunk = curl_slist_append(chunk, "Accept-Language: en-US, *;q=0.1");
+
 	res = curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
 	curl_easy_setopt(curl, CURLOPT_URL, url);
 	curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1l);
-	/* we want the headers to this file handle */ 
+	/* cb_header will extract the client id */ 
 	curl_easy_setopt(curl,  CURLOPT_HEADERFUNCTION, cb_header);
 	curl_easy_setopt(curl,  CURLOPT_WRITEHEADER, (void*)&r0_client_id);
 	/* send all data to this function  */ 
@@ -178,7 +195,6 @@ int main(int argc, char*argv[])
 	if(verbose) printf("client id is : %s \r\n", r0_client_id.client_id);
 	char line_cid[100];
 	char line_bw[128];
-	//line_cid = new char[strlen(r0_client_id.client_id)+1];
 	sprintf(line_cid,"Pragma: client_id=%s",r0_client_id.client_id);
 	if(speed == 1.0) 
 	{ 
@@ -187,7 +203,6 @@ int main(int argc, char*argv[])
 		sprintf(line_bw,"Pragma: LinkBW=2147483647, AccelBW=2147483647, AccelDuration=10000, Speed=%f",speed);
 	}
 	chunk = curl_slist_append(chunk,"Pragma: xPlayStrm=1");
-	//chunk = curl_slist_append(chunk,"Pragma: LinkBW=2147483647, AccelBW=2147483647, AccelDuration=10000");
 	chunk = curl_slist_append(chunk,line_cid);
 	chunk = curl_slist_append(chunk,line_bw);
 	chunk = curl_slist_append(chunk,"Supported: com.microsoft.wm.srvppair, com.microsoft.wm.sswitch, com.microsoft.wm.predstrm");
@@ -198,19 +213,12 @@ int main(int argc, char*argv[])
 	res = curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
 	curl_easy_setopt(curl, CURLOPT_URL, url);
 	total_size = 0;//reset total size
-	//curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, progress);
-	//curl_easy_setopt(curl, CURLOPT_PROGRESSDATA, &prog);
-	//curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0L);
-	/* we want the headers to this file handle */ 
-	//curl_easy_setopt(curl,  CURLOPT_HEADERFUNCTION, cb_header);
-	//curl_easy_setopt(curl,  CURLOPT_WRITEHEADER, (void*)&r0_client_id);
-	/* send all data to this function  */ 
-	//curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, cb_data);
+    //Using multi handler, so that async r/w could be possible.
+    //Why required?  CDS-IS WMT streamer will NOT disconnect TCP after sending out End-Of-Stream
 	multi_handle = curl_multi_init();
 	curl_multi_add_handle(multi_handle,curl);
 	curl_multi_perform(multi_handle,&still_running);
 	while(still_running) {
-		//printf("ENTERING while\r\n");
 		struct timeval timeout;
 		int rc; /* select() return code */ 
 
