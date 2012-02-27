@@ -93,11 +93,11 @@ end
 asxfile = true if /\.asx$/ =~ url
 def asxparse (xml_data,protocol)
     data = XmlSimple.xml_in(xml_data)
-
-    data['Entry'].each do |item|
+	p data
+    data['entry'].each do |item|
         item['ref'].each do |url|
-            puts "PLAYLIST:" + url['HREF']
-            return url['HREF'] if /#{protocol}:\/\// =~ url['HREF']
+            puts "playlist:" + url['href']
+            return url['href'] if /#{protocol}:\/\// =~ url['href']
         end
     end
 end
@@ -118,6 +118,7 @@ if asxfile == true
         print "Get One body with length: "+ data.length.to_s + "\r\n"
         #parsing XML message
         #puts data
+        data = data.downcase
         url = asxparse(data,'http')
         puts "Updated URL:" + url
         data.length
