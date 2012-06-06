@@ -7,21 +7,30 @@ class CDSMWebDriver
     attr_reader :driver
     def initialize(browser,cap,cdsm_login_url)
         wb_url = "http://" + browser + ":4444" + "/wd/hub"
-        @driver = Selenium::WebDriver.for(:remote,:url => wb_url,:desired_capabilities => :"#{cap}")
-        #TODO: non-remote mode should be supported
-        #@driver = Selenium::WebDriver.for(:firefox)
+        if browser == 'localhost'
+            @driver = Selenium::WebDriver.for(:firefox)
+        else
+            #http://code.google.com/p/selenium/wiki/DesiredCapabilities
+            #profile = Selenium::WebDriver::Firefox::Profile.new
+            #profile['webdriver.load.strategy'] = 'unstable'
+            #profile.native_events = true
+            #capabilities = Selenium::WebDriver::Remote::Capabilities.firefox(:firefox_profile => profile)
+            #@driver = Selenium::WebDriver.for(:remote,:url => wb_url,:desired_capabilities => capabilities)
+            @driver = Selenium::WebDriver.for(:remote,:url => wb_url,:desired_capabilities => :"#{cap}")
+        end
         @driver.manage.timeouts.implicit_wait = 3
-        #@cdsm_url = "https://" + cdsm_ip + ":8443"
         @cdsm_url = cdsm_login_url
         #TODO verify cdsm login url
         puts @cdsm_url
         @browser_type = cap
         @verbose = false
-
     end
 
     def teardown
         @driver.quit
+    end
+    def verbose= (v)
+        @verbose = v
     end
 
     def login(username,password) 
@@ -38,14 +47,12 @@ class CDSMWebDriver
         e_login.click()
         #What would happen if no alert window popup ?
         ## TODO
-        a = @driver.switch_to.alert
-        puts a.text
-        #if alert.text == 'somegthing'  
-        #	alert.dismiss
-        #else  
-        #	alert.accept
-        #end
-        a.accept
+        begin
+            a = @driver.switch_to.alert
+            puts a.text
+            a.accept
+        rescue Selenium::WebDriver::Error::NoAlertPresentError => e
+        end     
 
         #@nav_frame = @driver.find_element(:name,'nav')
         #@body_frame = @driver.find_element(:name,'body')
@@ -292,17 +299,17 @@ class CDSMWebDriver
     end
     def click_nas(nas_dest_name)
 
+        puts "Clicking NAS with name : " + nas_dest_name
         click_syscfg('NAS File Registration')
         nas_cfg_tb = @driver.find_elements(:xpath,'/html/body/form/table[2]/tbody/tr/td/table/tbody/tr/td/table/tbody/tr')
         if nas_cfg_tb == nil
             return false
         end
         number_of_nas_cfg = nas_cfg_tb.length - 3
-        puts "len of cfg_tb " + nas_cfg_tb.length.to_s
+        puts "Length of Table: " + nas_cfg_tb.length.to_s
         if nas_cfg_tb.length <= 3
             puts "Empty NAS Reginster file"
         else 
-            puts "Fine"
         end
         #remove the fist 2 and last 2 rows
         cfg_tb = nas_cfg_tb[2,number_of_nas_cfg]
@@ -310,13 +317,15 @@ class CDSMWebDriver
         is_button_found = false
         cfg_tb.each do |nas|
             list = nas.find_elements(:tag_name,'td')
+            puts "Name in the table: " + list[2].text.strip
             if list[2].text.strip == nas_dest_name
-                if_button_found = true
+                is_button_found = true
                 list[0].find_element(:tag_name,'a').click()
                 break
             end
         end
         if is_button_found == true
+            puts "NAS Found and clicked"
             return true
         else 
             return false
@@ -325,11 +334,28 @@ class CDSMWebDriver
     ###### Delete button is generic operation
     def delete()
         goto_content_header()
-        @driver.find_element(:xpath,'/html/body/table/tbody/tr/td/table/tbody/tr/td[2]/a').click()
+        del_button = @driver.find_element(:xpath,'/html/body/table/tbody/tr/td/table/tbody/tr/td[2]/a')
+        #@driver.action.move_to(del_button).perform
+        if @browser_type == 'firefox'
+            @driver.manage.timeouts.page_load = 3
+            @driver.manage.timeouts.script_timeout = 2
+        end
         begin
-            #    p @driver.window_handles
+            del_button.click()
+        rescue Selenium::WebDriver::Error::ScriptTimeOutError => e
+        #rescue Selenium::WebDriver::Error::TimeOutError => e
+        #rescue Timeout::Error => e
+        end
+        #@driver.find_element(:xpath,'/html/body/table/tbody/tr/td/table/tbody/tr/td[2]/a').send_keys("\n")
+        #@driver.execute_script('localDelete(\'object\')')
+        windows = @driver.window_handles
+        windows.each { |win| puts win}
+        #frs = @driver.find_elements(:tag_name,'frame')
+        #frs.each { |fr| puts fr}
+        begin
+            puts 'Switching to alert'
             a = @driver.switch_to.alert
-            puts a.text
+            #puts a.text
             a.accept
         rescue Selenium::WebDriver::Error::NoAlertPresentError => e
         end
@@ -604,9 +630,14 @@ class CDSMWebDriver
         show_input_option if @verbose
         show_elements(*p)
     end
+    def get_nas(nas_name,*p)
+        click_nas(nas_name)
+        goto_content_middle()
+        show_input_option if @verbose
+    end
 
     #TODO: Be able to set all in the same func
-    # as i know, there are 5 kind of 'input', 1) input,type=text, 2) select, option 3)input, type=checkbox 4)textarea
+    # as i know, there are 6 kinds of 'input', 1) input,type=text, 2) select, option 3)input, type=checkbox 4)textarea
     # 5) input, type=hidden 6) radio button
     # idealy the parameters look like: name,key-1, val-1,key-2,val-2
     # if it's check box, val should be 0,1
@@ -678,7 +709,7 @@ class CDSMWebDriver
 
         puts "start to logout"
         goto_nav()
-        if @browser_tyep == 'ie'
+        if @browser_type == 'ie'
             @driver.find_element(:link, 'Logout').send_keys("\n")
         else 
             @driver.find_element(:link, 'Logout').click()

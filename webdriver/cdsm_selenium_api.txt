@@ -1,5 +1,5 @@
-
-Release of  prototype version for CDSM/NAS configuration using selenium.
+Release Notes :
+CDSM configuration Tool(selenium).
 You can integrate it with test automation framework.
 
 1)  Login client Linux box, 172.22.28.19, with login hailwang/hailwang
@@ -54,12 +54,29 @@ Documentation is not done yet. Pls follow these 4 samples first.
 
 
 
-Updated: it's more stable now.
+Updated:
 I saw 6 IE was opened and  2 of them showed  wrong domain name.  I guess at that time u111-205-3 was not added into /etc/hosts. Then IE-driver crashed, so you got Connection refuse msg.
 
 Now IE-driver has been started and you can try it again.  When you hit the same issue, pls login to 154.0.102.7 to start selenium-server .
 
 c:\clients>java -jar selenium-server-standalone-2.**.0.jar
+
+Installation for Selenium-server:
+
+1) Download .jar file from http://seleniumhq.org/download/
+2) Make sure JDK/JRE is installed on the PC
+3) in Windows, run cmd, 
+
+c:\clients>java -jar selenium-server-standalone-2.**.0.jar
+
+Installation for Selenium-client driver
+
+Ruby binding is used
+1) Make sure Ruby is installed
+2) Make sure GEM is installed
+3) run command:  gem install selenium-webdriver
+Ref: http://rubygems.org/gems/selenium-webdriver
+
 
 ------------------------------------------------------------------------------------------------------------
 
@@ -144,12 +161,20 @@ Type Options
 ---      Option Value:  Text: Please make a choice
 ---      Option Value:  Text: Import
 ---      Option Value:  Text: Upload
+
 ---Select Option Name: FileInfo_Type
 ---      Option Value:  Text: Please make a choice
 ---      Option Value:  Text: NAS Configuration File
 
-----------------------------------------------------
+---Input tag name : FileInfo_OriginUrl type: text
+---Input tag name : FileInfo_DestinationPath type: text
+---Input tag name : FileInfo_TTL type: text
+---Input tag name : FileInfo_UserName type: text
+---Input tag name : FileInfo_Password type: password
+---Input tag name : FileInfo_Domain type: text
+---Input tag name : FileInfo_DisableBasicAuth type: checkbox
 
+----------------------------------------------------
 Live Program
 
 ----------------------------------------------------

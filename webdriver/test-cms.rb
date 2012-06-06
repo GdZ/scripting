@@ -2,10 +2,12 @@
 require "rubygems"
 require './cms_wb_api.rb'
 
-browser = 'ie'
-#browser = 'firefox'
+#browser = 'ie'
+browser = 'firefox'
 cdsm_url = 'https://U11-205-3:8443'
 #cdsm_url = 'https://162.0.122.3:8443'
+#wd_ip = 'localhost'
+#wd_ip = '10.35.72.176'
 wd_ip = '172.22.28.97'
 user = 'admin'
 passwd = 'default'
@@ -19,6 +21,7 @@ passwd = 'default'
 #so hostname should be added into /etc/hosts file 
 
 cdsm = CDSMWebDriver.new(wd_ip,browser,cdsm_url)
+cdsm.verbose= true
 cdsm.login(user,passwd)
 #CO
 #cdsm.create_co('Name','test','OriginFqdn','1.2.3.4','Fqdn','cisco.com','ContentAffinityEnabled','0')
@@ -44,10 +47,10 @@ cdsm.login(user,passwd)
 #
 #
 #cdsm.create_nas('method','Upload','uploadFile','C:\Documents and Settings\Administrator\My Documents\pub\automation\testcase\feature\NAS\NAS-UPLOAD\NAS-valid.xml')
-#cdsm.create_nas('Upload','uploadFile','C:\Documents and Settings\Administrator\My Documents\2.txt')
 #cdsm.modify_nas('NAS-valid.xml','method','Upload','uploadFile','C:\Documents and Settings\Administrator\My Documents\pub\automation\testcase\feature\NAS\NAS-UPLOAD\NAS1-valid.xml','FileInfo_DestinationPath','NAS1-valid.xml')
-#cdsm.del_nas('NAS1-valid.xml')
+cdsm.del_nas('NAS-valid.xml')
 #cdsm.create_nas('method','Import','FileInfo_OriginUrl','ftp://10.77.153.110/pub/Automation/NASCONFIG/NAS1.xml','FileInfo_DestinationPath','NAS1.xml','FileInfo_TTL','2')
+#cdsm.get_nas('NAS-valid.xml')
 #cdsm.get_syscfg_list
 #
 #
@@ -63,7 +66,7 @@ cdsm.login(user,passwd)
 #cdsm.assign_dg('test','U11-205-5','U11-220-4')
 #cdsm.del_dg('test')
 cdsm.logout()
-sleep 5
+sleep 6
 cdsm.teardown()
 
 
