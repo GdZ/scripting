@@ -1,12 +1,16 @@
-var window;
-function f1() {
-   var msg = "haha";
-   function f2() {
-      console.log(msg);
-   }
-   f2();
-   window.myF2 = f2;
-}
-f1();
-//window.myF2();
+//var window = function() {}; // It's ok
+//var window = null;// <==== Doesn't work !
+var window = new Object();// ok
+function f1(name) {
+   var msg = "Greeting: " + name;
+   var sayName =  function (text) {
+      console.log(msg + text);
+   };
+   window.myFun = sayName;
+   return sayName;
+};
+var sayNihao = f1('Hello ');
+sayNihao('More');
+sayNihao("Less");
+window.myFun('anything');
 
