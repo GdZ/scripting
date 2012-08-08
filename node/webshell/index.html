@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/socket.io/socket.io.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      function add_content(str){
+        //console.log(str);
+        $('div').append('<p>' + $('<div/>').text(str).html() + '</p>');
+        $(window).scrollTop($('body').height() - $(window).height() + 80);
+      }
+      //trigger connection event in server side.
+      var socket = io.connect('/');
+      //listen stdout, stderr event from server and show it.
+      //jQuery map
+      //Javascript String.fromCharCode:
+      //Convert a Unicode number into a character:
+      // message event is just string. 
+      // while emit always sending Object, in this case, it's a Buffer object
+      // so, Buffer object need to be converted into string.
+      socket.on('stdout', function(data) {
+            add_content($.map(data, function(e,i) {
+                  return String.fromCharCode(e);
+                  }).join(''));
+      });
+      socket.on('stderr', function(data) {
+            add_content($.map(data, function(e,i) {
+               return String.fromCharCode(e);
+            }).join(''));
+      });
+      socket.on('message', function(data) {
+            //console.log(data);
+            add_content(data);
+      });
+      socket.on('leave', function(data) {
+            //TBD
+            console.log(data);
+            add_content(data.clientNumber);
+      });
+      $(function(){
+        $('form').submit(function(e){
+          var input = $('input');
+          //Trigger message event in server side.
+          socket.send(input.val());
+           //Clean input
+          input.val('');
+          return false;
+        });
+        $('input').focus();
+      });
+    </script> 
+    <style type="text/css">
+      body, p, input {
+        font-family: fixed;
+        font-size: 10px;
+        border: none;
+      }
+      p { white-space: pre; }
+      p, form, input { margin:0; padding:0; }
+      input:focus { outline: none; border: none; }
+    </style>
+  </head>
+  <body>
+    <div></div>
+    <form>
+      &gt; <input>
+    </form>
+  </body>
+</html>
