@@ -1,12 +1,14 @@
 var http = require('http');
 var net = require('net');
- var options = {
-  host: 't.live.cntv.cn',
-  port: 80,
-  path: '/m3u8/cctv-news.m3u8',
-  dir: '',
-  method: 'GET'
- };
+var options = {
+   host: 't.live.cntv.cn',
+   port: 80,
+   path: '/m3u8/cctv-news.m3u8',
+   dir: '',
+   method: 'GET'
+};
+var pids = new Array();
+var myAgent = new http.Agent({maxSockets: 1});
 // var options = {
 //   host: '173.36.255.148',
 //   port: 80,
@@ -14,10 +16,8 @@ var net = require('net');
 //   dir: '',
 //   method: 'GET'
 // };
-var pids = new Array();
-var myAgent = new http.Agent({maxSockets: 1});
 //HTTP data body call back
-cb_data = function (chunk) {
+m3u8_parser = function (chunk) {
 
    console.log('BODY: ' + chunk);
    var buffer = [];
@@ -104,56 +104,47 @@ cb_data = function (chunk) {
 };
 
 //HTTP Response Callback
-cb1 = function(res) {
-   console.log('STATUS: ' + res.statusCode);
-   console.log('HTTPVersion: ' + res.httpVersion);
-   for (var header in res.headers) {
-      var iValue = res.headers[header];
-      console.log('HTTP Response header [' + header + ':' + iValue + '\]');
-   };
+var router = {
+   "video/MP2T": "cb_ts_data",
+   "audio/x-mpegurl":"get_playlist",
+   "application/x-mpegurl":"get_ts_file",
+};
+   
+cb_m3u8 = function(res) {
+   show_http_header(res);
    var type = res.headers['content-type']; 
-   //res.setEncoding('utf8');
-   res.on('data',cb_data);
+   res.on('data',m3u8_parser);
    res.on('end', function() {
-      after_m3u8();
-      console.log('End of response HTTP2');
+      if(type === "audio/x-mpegurl") {
+         get_playlist();
+      } else {
+         get_ts_file();
+      };
+      console.log('End of response HTTP1');
    });
    res.on('close',function () { console.log('close');});
 };
-//2nd HTTP Client, get 2nd M3U8 and TS files 
-cb2 = function(res) {
+function show_http_header (res) {
    console.log('STATUS: ' + res.statusCode);
    console.log('HTTPVersion: ' + res.httpVersion);
    for (var header in res.headers) {
       var iValue = res.headers[header];
       console.log('HTTP Response header [' + header + ':' + iValue + '\]');
    };
-   //res.setEncoding('utf8');
-   res.on('data',cb_data);
-   res.on('end', function () { 
-      get_ts_file();
-      console.log('End of response HTTP2'); 
-   });
-   res.on('close',function () { console.log('close');});
-};
+
+}
 fs = require('fs');
 var index_ts_files = 0;
-cb3 = function(res) {
-   console.log('STATUS: ' + res.statusCode);
-   console.log('HTTPVersion: ' + res.httpVersion);
-   for (var header in res.headers) {
-      var iValue = res.headers[header];
-      console.log('HTTP Response header [' + header + ':' + iValue + '\]');
-   };
+cb_ts = function(res) {
+   show_http_header(res);
    index_ts_files ++;
-   //res.setEncoding('utf8');
-   res.on('data',cb_ts_data);
+   res.on('data',save_ts_data);
    res.on('end', function () { 
-      console.log('End of response HTTP2'); 
+      console.log('End of TS file download'); 
    });
    res.on('close',function () { console.log('close');});
 };
-cb_ts_data = function(chunk) {
+save_ts_data = function(chunk) {
    console.log('Receiving data length '+ chunk.length);
    //var buffer = [];
    //var bodyLen = 0;
@@ -168,17 +159,13 @@ cb_ts_data = function(chunk) {
    //ws.write(chunk);
 
 }
-var req = http.request(options, cb1);
+var req = http.request(options, cb_m3u8);
 req.on('error', function(e) {
    console.log('problem with request: ' + e.message);
 });
 req.end();
 
-// write data to request body
-//req.write('data\n');
-//req.write('data\n');
-after_m3u8 = function() {
-
+get_playlist = function() {
    //choose one bandwitdh
    var url = require('url'); 
    var options2 = url.parse(pids[0].pl);
@@ -203,10 +190,10 @@ after_m3u8 = function() {
    console.log('dump options: host ' + options2.host +' path: ' + options2.path + ' method: ' + options2.method);
    pids[0].host = options2.host;
    options2.agent = myAgent;
-   var req2 = http.request(options2,cb2);
-   console.log('HERRY1');
+   console.log('Requesting m3u8 list');
+   var req2 = http.request(options2,cb_m3u8);
    req2.on('error', function(e) {
-      console.log('problem with request2: ' + e.message);
+      console.log('problem with request1: ' + e.message);
    });
    req2.end();
 };
@@ -222,13 +209,13 @@ get_ts_file = function() {
       options2.method = 'GET';
       options2.host = pids[0].host;
       options2.agent = myAgent;
-
       options2.path = options.dir + '/' + options2.path;
       console.log('dump options: host ' + options2.host +' path: ' + options2.path + ' method: ' + options2.method);
-      var req2 = http.request(options2,cb3);
-      console.log('HERRY2');
+      console.log('Requesting Ts file list');
+      var req2 = http.request(options2,cb_ts);
       req2.on('error', function(e) {
          console.log('problem with request2: ' + e.message);
       });
-      req2.end();}
+      req2.end();
+   }
 };

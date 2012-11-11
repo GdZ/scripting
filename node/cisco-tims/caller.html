@@ -1,0 +1,1126 @@
+<html>
+	<head>
+	   <script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+           <link href="json-pre.css" type="text/css" rel="stylesheet" />
+	</head>
+	
+	<body>
+	  <h2>Welcome to Reference Integration QuickieViewer!</h2>
+	
+	  <div id = "rpcStatus"></div>
+	
+		<div>
+			<ol>
+		    
+        <li>
+          <div class = "Search">
+            <p>Search - GET: /v2/catalog/search <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "SearchForm">
+              <thead>
+                <tr><td>q</td><td>sessionid</td><td>productsize</td><td>pagesize</td><td>startrecord</td><td>filters</td><td>sortfield</td><td>sortorder</td><td>regionid</td><td>video_stream_type</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "q" /></td>
+                  <td><input type = "text" class = "sessionid" /></td>
+                  <td><input type = "text" class = "productsize" /></td>
+                  <td><input type = "text" class = "pagesize" /></td>
+                  <td><input type = "text" class = "startrecord" /></td>
+                  <td><input type = "text" class = "filters" /></td>                
+                  <td><input type = "text" class = "sortfield" /></td>                
+                  <td><input type = "text" class = "sortorder" /></td>
+                  <td><input type = "text" class = "regionid" /></td>
+                  <td><input type = "text" class = "video_stream_type" /></td>          
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "SearchViewer">Search</code></pre></div>
+          </div>            
+        </li>	
+        
+         <li>
+          <div class = "SearchAhead">
+            <p>SearchAhead - GET: /v2/catalog/searchahead <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "SearchAheadForm">
+              <thead>
+                <tr><td>q</td><td>sessionid</td><td>filters</td><td>regionid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "q" /></td>
+                  <td><input type = "text" class = "sessionid" /></td>
+                  <td><input type = "text" class = "filters" /></td>                
+                  <td><input type = "text" class = "regionid" /></td>          
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "SearchAheadViewer">SearchAhead</code></pre></div>
+          </div>            
+        </li>		   	    
+		    
+		    <li>
+          <div class = "GetAllGenre">
+            <p>GetGenres - GET: /v2/catalog/genres <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetAllGenreForm">
+              <thead>
+                <tr></tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetAllGenreViewer">GetGenres</code></pre></div>
+          </div>            
+        </li>
+        
+        <li>
+          <div class = "GetAllVideoContentTypes">
+            <p>GetContentTypes - GET: /v2/catalog/contenttypes <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetAllVideoContentTypesForm">
+              <thead>
+                <tr></tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetAllVideoContentTypesViewer">GetContentTypes</code></pre></div>
+          </div>            
+        </li>        
+
+        <li>
+          <div class = "GetCategory">
+            <p>GetCategory - GET: /v2/catalog/category <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetCategoryForm">
+              <thead>
+                <tr></tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetCategoryViewer">GetCategory</code></pre></div>
+          </div>            
+        </li>        
+
+		<li>
+	        <div class = "GetCategoryById">
+	          <p>GetCategoryById - GET: /v2/catalog/category/{categoryid} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+	          <table class = "GetCategoryByIdForm">
+	            <thead>
+	              <tr><td>categoryid</td><td>returnpromocats</td><td>returnproducts</td><td>pagesize</td><td>startrecord</td></tr>
+	            </thead>
+	            <tbody>
+	              <tr>
+	                <td><input type = "text" class = "categoryid" /></td>
+	                <td><input type = "text" class = "returnpromocats" /></td>
+	                <td><input type = "text" class = "returnproducts" /></td>
+	                <td><input type = "text" class = "pagesize" /></td>
+	                <td><input type = "text" class = "startrecord" /></td>
+	              </tr>
+	            </tbody>
+	          </table>
+	          <div><p>Request details: <a class = 'rpcDetails' href = "http://www.w3schools.com/">Visit W3Schools</a></p></div>
+	          <div><pre><code id = "GetCategoryByIdViewer">GetCategoryById</code></pre></div>
+	        </div>		  
+		</li>
+		
+		<li>
+          <div class = "GetCategorySubscriptions">
+            <p>GetCategorySubscriptions - GET: /v2/catalog/subscriptions <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetCategorySubForm">
+              <thead>
+                <tr></tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetCategorySubViewer">GetCategorySubscriptions</code></pre></div>
+          </div>            
+        </li>        
+	        
+		<li>
+	        <div class = "GetProductBySku">
+	          <p>GetProductBySku - GET: /v2/catalog/product/{productsku} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+	          <table class = "GetProductBySkuForm">
+	            <thead>
+	              <tr><td>productsku</td><td>sessionid</td><td>productsize</td><td>video_stream_type</td><td>parentalpin</td></tr>
+	            </thead>
+	            <tbody>
+	              <tr>
+	                <td><input type = "text" class = "productsku" /></td>
+	                <td><input type = "text" class = "sessionid" /></td>
+	                <td><input type = "text" class = "productsize" /></td>
+	                <td><input type = "text" class = "video_stream_type" /></td>
+	                <td><input type = "text" class = "parentalpin" /></td>
+	              </tr>
+	            </tbody>
+	          </table>
+	          <div><p>Request details: <a class = 'rpcDetails' href = "http://www.w3schools.com/">Visit W3Schools</a></p></div>
+	          <div><pre><code id = "GetProductBySkuViewer">GetProductBySku</code></pre></div>
+	        </div>		  
+		</li>
+
+		<li>
+	        <div class = "GetProductRecommendedBySku">
+	          <p>GetProductRecommendedBySku - GET: /v2/catalog/products/recommended/{productsku} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+	          <table class = "GetProductRecommendedBySkuForm">
+	            <thead>
+	              <tr><td>productsku</td><td>sessionid</td><td>pagesize</td><td>startrecord</td><td>sortfield</td><td>sortorder</td><td>video_stream_type</td></tr>
+	            </thead>
+	            <tbody>
+	              <tr>
+	                <td><input type = "text" class = "productsku" /></td>
+	                <td><input type = "text" class = "sessionid" /></td>
+	                <td><input type = "text" class = "pagesize" /></td>
+	                <td><input type = "text" class = "startrecord" /></td>
+	                <td><input type = "text" class = "sortfield" /></td>
+	                <td><input type = "text" class = "sortorder" /></td>
+	                <td><input type = "text" class = "video_stream_type" /></td>
+	              </tr>
+	            </tbody>
+	          </table>
+	          <div><p>Request details: <a class = 'rpcDetails' href = "http://www.w3schools.com/">Visit W3Schools</a></p></div>
+	          <div><pre><code id = "GetProductRecommendedBySkuViewer">GetProductRecommendedBySku</code></pre></div>
+	        </div>		  
+		</li>
+			
+		<li>
+	        <div class = "GetProducts">
+	          <p>GetProducts - GET: /v2/catalog/products <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+	          <table class = "GetProductsForm">
+	            <thead>
+	              <tr><td>productsize</td><td>sessionid</td><td>pagesize</td><td>startrecord</td><td>filters</td><td>sortfield</td><td>sortorder</td><td>video_stream_type</td></tr>
+	            </thead>
+	            <tbody>
+	              <tr>
+	                <td><input type = "text" class = "productsize" /></td>
+	                <td><input type = "text" class = "sessionid" /></td>
+	                <td><input type = "text" class = "pagesize" /></td>
+	                <td><input type = "text" class = "startrecord" /></td>
+	                <td><input type = "text" class = "filters" /></td>
+	                <td><input type = "text" class = "sortfield" /></td>
+	                <td><input type = "text" class = "sortorder" /></td>
+	                <td><input type = "text" class = "video_stream_type" /></td>
+	              </tr>
+	            </tbody>
+	          </table>
+	          <div><p>Request details: <a class = 'rpcDetails' href = "http://www.w3schools.com/">Visit W3Schools</a></p></div>
+	          <div><pre><code id = "GetProductsViewer">GetProducts</code></pre></div>
+	        </div>		  
+		</li>
+							  
+		<li>
+          <div class = "GetRatingsParentalControls">
+            <p>GetRatingsParentalControls - GET: /v2/catalog/parentalcontroloptions <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetRatingsParentalControlsForm">
+              <thead>
+                <tr></tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetRatingsParentalControlsViewer">GetRatingsParentalControls</code></pre></div>
+          </div>            
+        </li>        
+			  
+        <li>
+          <div class = "AddFavorites">
+            <p>AddFavorites - PUT: /v2/user/favorites/{productsku} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "AddFavoritesForm">
+              <thead>
+                <tr><td>productsku</td><td>sessionid</td><td>favoritetype</td><td>favoritelist</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "productsku"/></td> 
+                  <td><input type = "text" class = "sessionid"/></td> 
+                  <td><input type = "text" class = "favoritetype"/></td> 
+                  <td><input type = "text" class = "favoritelist"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "AddFavoritesViewer">AddFavorites</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>   
+          </div>            
+        </li>			  
+        
+        <li>
+          <div class = "GetFavorites">
+            <p>GetFavorites - GET: /v2/user/favorites <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetFavoritesForm">
+              <thead>
+                <tr><td>sessionid</td><td>favoritelist</td><td>video_stream_type</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>
+                  <td><input type = "text" class = "favoritelist"/></td>
+                  <td><input type = "text" class = "video_stream_type" /></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetFavoritesViewer">GetFavorites</code></pre></div>
+          </div>            
+        </li>               
+        
+        <li>
+          <div class = "RemoveFavorites">
+            <p>RemoveFavorites - DELETE: /v2/user/favorites/{productsku} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "RemoveFavoritesForm">
+              <thead>
+                <tr><td>productsku</td><td>sessionid</td><td>favoritetype</td><td>favoritelist</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "productsku"/></td> 
+                  <td><input type = "text" class = "sessionid"/></td> 
+                  <td><input type = "text" class = "favoritetype"/></td>
+                  <td><input type = "text" class = "favoritelist"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "RemoveFavoritesViewer">RemoveFavorites</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>  
+        <li>
+          <div class = "GetBookmarks">
+            <p>GetBookmarks - GET: /v2/user/bookmarks <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetBookmarksForm">
+              <thead>
+                <tr><td>sessionid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetBookmarksViewer">GetBookmarks</code></pre></div>
+          </div>            
+        </li>
+
+        <li>
+          <div class = "Login">
+            <p>Login - POST: /v2/user/authentication/login <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "LoginForm">
+              <thead>
+                <tr><td>username</td><td>password</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "username"/></td> 
+                  <td><input type = "text" class = "password"/></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "LoginViewer">Login</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>  
+
+        <li>
+          <div class = "Logout">
+            <p>Logout - POST: /v2/user/authentication/logout <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "LogoutForm">
+              <thead>
+                <tr><td>sessionid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "LogoutViewer">Logout</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>  
+
+        <li>
+          <div class = "ChangePassword">
+            <p>ChangePassword - POST: /v2/user/authentication/changepassword <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "ChangePasswordForm">
+              <thead>
+                <tr><td>sessionid</td><td>old_password</td><td>password</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>
+                  <td><input type = "text" class = "old_password"/></td>
+                  <td><input type = "text" class = "password"/></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "ChangePasswordViewer">ChangePassword</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>  
+
+        <li>
+          <div class = "ResetPassword">
+            <p>ResetPassword - POST: /v2/user/authentication/resetpassword <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "ResetPasswordForm">
+              <thead>
+                <tr><td>email</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "email"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "ResetPasswordViewer">ResetPassword</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>  
+       
+        <li>
+          <div class = "ResetPasswordValidate">
+            <p>ResetPasswordValidate - POST: /v2/user/authentication/resetpassword/validate <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "ResetPasswordValidateForm">
+              <thead>
+                <tr><td>password</td><td>confirmation</td><td>guid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "password"/></td>
+                  <td><input type = "text" class = "confirmation"/></td>
+                  <td><input type = "text" class = "guid"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "ResetPasswordValidateViewer">ResetPasswordValidate</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>  
+        
+        <li>
+          <div class = "GetProfile">
+            <p>GetProfile - GET: /v2/user/profile <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetProfileForm">
+              <thead>
+                <tr><td>sessionid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetProfileViewer">GetProfile</code></pre></div>
+          </div>            
+        </li>  
+   
+        <li>
+          <div class = "UpdateProfile">
+            <p>UpdateProfile - POST: /v2/user/profile <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "UpdateProfileForm">
+              <thead>
+                <tr><td>sessionid</td><td>username</td><td>email</td><td>firstname</td><td>lastname</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>
+                  <td><input type = "text" class = "username"/></td>
+                  <td><input type = "text" class = "email"/></td>
+                  <td><input type = "text" class = "firstname"/></td>
+                  <td><input type = "text" class = "lastname"/></td>
+                </tr>
+              </tbody>
+            </table>
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>
+            <div><pre><code id = "UpdateProfileViewer">UpdateProfile</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>
+        </li>
+
+        
+        <li>
+          <div class = "Purchase">
+            <p>Purchase - POST: /v2/store/purchase <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "PurchaseForm">
+              <thead>
+                <tr><td>productsku</td><td>productid</td><td>sessionid</td><td>paymentinformation</td><td>pin</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "productsku"/></td> 
+                  <td><input type = "text" class = "productid"/></td>
+                  <td><input type = "text" class = "sessionid"/></td> 
+                  <td><input type = "text" class = "paymentinformation"/></td> 
+                  <td><input type = "text" class = "pin"/></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "PurchaseViewer">Purchase</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>            
+        
+        <li>
+          <div class = "GetRegions">
+            <p>GetRegions - GET: /v2/programdata/regions <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetRegionsForm">
+              <thead>
+                <tr></tr>
+              </thead>
+              <tbody>
+                <tr>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetRegionsViewer">GetRegions</code></pre></div>
+          </div>            
+        </li>
+        
+        <li>
+          <div class = "GetChannels">
+            <p>GetChannels - GET: /v2/programdata/regions/{regionid}/channels <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetChannelsForm">
+              <thead>
+                <tr><td>sessionid</td><td>regionid</td><td>startrecord</td><td>pagesize</td><td>video_stream_type(HLS or SS)</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionId"/></td>
+                  <td><input type = "text" class = "regionId"/></td>
+                  <td><input type = "text" class = "startrecord"/></td> 
+                  <td><input type = "text" class = "pagesize"/></td> 
+                  <td><input type = "text" class = "video_stream_type"/></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = 'GetChannelsViewer'>GetChannels</code></pre></div>
+          </div>            
+        </li> 
+        
+        <li>
+          <div class = "GetChannelsByChannelPks">
+            <p>GetChannelsByChannelPks - GET: /v2/programdata/regions/{regionid}/channels/{channelpks} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetChannelsByChannelPksForm">
+              <thead>
+                <tr><td>sessionid</td><td>regionid</td><td>channelpks(comma list)</td><td>startrecord</td><td>pagesize</td><td>video_stream_type(HLS or SS)</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionId"/></td>
+                  <td><input type = "text" class = "regionId"/></td>
+                  <td><input type = "text" class = "channelpks"/></td>
+                  <td><input type = "text" class = "startrecord"/></td> 
+                  <td><input type = "text" class = "pagesize"/></td> 
+                  <td><input type = "text" class = "video_stream_type"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = 'GetChannelsByChannelPksViewer'>GetChannelsByChannelPks</code></pre></div>
+          </div>            
+        </li> 
+        
+        <li>
+          <div class = "GetProgramSchedule">
+            <p>GetProgramSchedule - GET: /v2/programdata/regions/{regionid}/programs/{programid} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetProgramScheduleForm">
+              <thead>
+                <tr><td>regionid</td><td>programid</td><td>pagesize</td><td>startrecord</td><td>starttime(ex. 2012-07-10T10:00Z)</td><td>duration</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "regionid"/></td>
+                  <td><input type = "text" class = "programid"/></td> 
+                  <td><input type = "text" class = "pagesize"/></td> 
+                  <td><input type = "text" class = "startrecord"/></td> 
+                  <td><input type = "text" class = "starttime"/></td> 
+                  <td><input type = "text" class = "duration"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = 'GetProgramScheduleViewer'>GetProgramSchedule</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li> 
+        
+        <li>
+          <div class = "GetSchedules">
+            <p>GetSchedules - GET: /v2/programdata/regions/{regionid}/schedules <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetSchedulesForm">
+              <thead>
+                <tr><td>regionid</td><td>starttime(ex. 2012-07-10T10:00Z)</td><td>duration</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "regionid"/></td>
+                  <td><input type = "text" class = "starttime"/></td> 
+                  <td><input type = "text" class = "duration"/></td>    
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = 'GetSchedulesViewer'>GetSchedules</code></pre></div>
+          </div>            
+        </li>       
+
+        <li>
+          <div class = "GetSchedulesByChannelIds">
+            <p>GetSchedulesByChannelIds - GET: /v2/programdata/regions/{regionid}/schedules/{channelids} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetSchedulesByChannelIdsForm">
+              <thead>
+                <tr><td>regionid</td><td>channelids</td><td>starttime(ex. 2012-07-10T10:00Z)</td><td>duration</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "regionid"/></td>
+                  <td><input type = "text" class = "channelids"/></td>
+                  <td><input type = "text" class = "starttime"/></td> 
+                  <td><input type = "text" class = "duration"/></td>    
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = 'GetSchedulesByChannelIdsViewer'>GetSchedulesByChannelIds</code></pre></div>
+          </div>            
+        </li>    
+        
+         <li>
+          <div class = "GetModifiedSchedules">
+            <p>GetModifiedSchedules - GET: /v2/programdata/region/{regionid}/schedule/check <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetModifiedSchedulesForm">
+              <thead>
+                <tr><td>regionid</td><td>lastdate(i.e. last date of schedule retrieval, eg. 2012-07-10T10:00Z)</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "regionid"/></td>
+                  <td><input type = "text" class = "lastdate"/></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = 'GetModifiedSchedulesViewer'>GetModifiedSchedules</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>       
+           
+        
+        <li>
+          <div class = "GetPurchaseHistory">
+            <p>GetPurchaseHistory - GET: /v2/account/history/purchases <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetPurchaseHistoryForm">
+              <thead>
+                <tr><td>sessionid</td><td>pagesize</td><td>startrecord</td><td>sortfield</td><td>sortorder</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>
+                  <td><input type = "text" class = "pagesize"/></td>
+                  <td><input type = "text" class = "startrecord"/></td>
+                  <td><input type = "text" class = "sortfield"/></td>
+                  <td><input type = "text" class = "sortorder"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = 'GetPurchaseHistoryViewer'>GetPurchaseHistory</code></pre></div>
+          </div>            
+        </li>                                               
+
+        <li>
+          <div class = "GetEntitlements">
+            <p>GetEntitlements - GET: /v2/account/entitlements <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetEntitlementsForm">
+              <thead>
+                <tr><td>sessionid</td><td>filters</td><td>pagesize</td><td>startrecord</td><td>sortfield</td><td>sortorder</td><td>videoStreamType (SS or HLS)</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>
+                  <td><input type = "text" class = "filters"/></td>
+                  <td><input type = "text" class = "pagesize"/></td>
+                  <td><input type = "text" class = "startrecord"/></td>
+                  <td><input type = "text" class = "sortfield"/></td>
+                  <td><input type = "text" class = "sortorder"/></td>
+                  <td><input type = "text" class = "video_stream_type"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = 'GetEntitlementsViewer'>GetEntitlements</code></pre></div>
+          </div>            
+        </li>                                               
+
+	<li>
+          <div class = "DeleteEntitlements">
+            <p>GetEntitlements - DELETE: /v2/account/entitlements <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "DeleteEntitlementsForm">
+              <thead>
+                <tr><td>sessionid</td><td>productsku</td><td>productid</td><td>pin</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>
+                  <td><input type = "text" class = "productsku"/></td>
+                  <td><input type = "text" class = "productid"/></td>
+                  <td><input type = "text" class = "pin"/></td>                  
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = 'DeleteEntitlementsViewer'>DeleteEntitlements</code></pre></div>            
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+
+        <li>
+          <div class = "GetSettings">
+            <p>GetSettings - GET: /v2/account/settings <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetSettingsForm">
+              <thead>
+                <tr><td>sessionid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = 'GetSettingsViewer'>GetSettings</code></pre></div>
+          </div>            
+        </li>                       
+
+        <li>
+          <div class = "GetSettingsParentalRatings">
+            <p>GetSettingsParentalRatings - GET: /v2/account/settings/parentalcontrols <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetSettingsParentalRatingsForm">
+              <thead>
+                <tr><td>sessionid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = 'GetSettingsParentalRatingsViewer'>GetSettingsParentalRatings</code></pre></div>
+          </div>            
+        </li>                       
+
+        <li>
+          <div class = "Register">
+            <p>Register - PUT: /v2/account/register <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "RegisterForm">
+              <thead>
+                <tr><td>username</td><td>email</td><td>password</td><td>firstname</td><td>lastname</td><td>parentalpin</td><td>purchasepin</td><td>regionid</td><td>accountnumber</td>
+                <td>address</td><td>city</td><td>state</td><td>zip</td><td>jid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "username"/></td>
+                  <td><input type = "text" class = "email"/></td>
+                  <td><input type = "text" class = "password"/></td>
+                  <td><input type = "text" class = "firstname"/></td>
+                  <td><input type = "text" class = "lastname"/></td>
+                  <td><input type = "text" class = "parentalpin"/></td>
+                  <td><input type = "text" class = "purchasepin"/></td>
+                  <td><input type = "text" class = "regionid"/></td>
+                  <td><input type = "text" class = "accountnumber"/></td>
+                  <td><input type = "text" class = "address"/></td>
+                  <td><input type = "text" class = "city"/></td>
+                  <td><input type = "text" class = "state"/></td>
+                  <td><input type = "text" class = "zip"/></td>
+                  <td><input type = "text" class = "jid"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "RegisterViewer">Register</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>  
+        <li>
+          <div class = "AddBlockedChannels">
+            <p>AddBlockedChannels - PUT : /v2/account/settings/blockedchannels/{channels} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "AddBlockedChannelsForm">
+              <thead>
+                <tr><td>channels(comma-list)</td><td>sessionid</td><td>parentalpin</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "channels"/></td>
+                  <td><input type = "text" class = "sessionid"/></td>                  
+                  <td><input type = "text" class = "parentalpin"/></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "AddBlockedChannelsViewer">AddBlockedChannels</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+        
+        <li>
+          <div class = "UpdateSettingsParentalRatings">
+            <p>UpdateSettingsParentalRatings - POST: /v2/account/settings/parentalcontrols <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "UpdateSettingsParentalRatingsForm">
+              <thead>
+                <tr><td>sessionid</td><td>parentalpin</td><td>movieblockinglevel</td><td>movieblockingon</td><td>movieblockingunratedon</td><td>tvblockinglevel</td><td>tvblockingon</td><td>tvblockingunratedon</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>
+                  <td><input type = "text" class = "parentalpin"/></td>
+                  <td><input type = "text" class = "movieblockinglevel"/></td>
+                  <td><input type = "text" class = "movieblockingon"/></td>
+                  <td><input type = "text" class = "movieblockingunratedon"/></td>
+                  <td><input type = "text" class = "tvblockinglevel"/></td>
+                  <td><input type = "text" class = "tvblockingon"/></td>
+                  <td><input type = "text" class = "tvblockingunratedon"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "UpdateSettingsParentalRatingsViewer">UpdateSettingsParentalRatings</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+        
+        <li>
+          <div class = "UpdateAccountPins">
+            <p>UpdateAccountPins - POST: /v2/account/settings <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "UpdateAccountPinsForm">
+              <thead>
+                <tr><td>sessionid</td><td>old_parentalpin</td><td>parentalpin</td><td>old_purchasepin</td><td>purchasepin</td><td>regionid</td><td>address</td><td>city</td><td>state</td><td>zip</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>
+                  <td><input type = "text" class = "old_parentalpin"/></td>
+                  <td><input type = "text" class = "parentalpin"/></td>
+                  <td><input type = "text" class = "old_purchasepin"/></td>
+                  <td><input type = "text" class = "purchasepin"/></td> 
+                  <td><input type = "text" class = "regionid"/></td>
+                  <td><input type = "text" class = "address"/></td>
+                  <td><input type = "text" class = "city"/></td>
+                  <td><input type = "text" class = "state"/></td>
+                  <td><input type = "text" class = "zip"/></td>                 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "UpdateAccountPinsViewer">UpdateAccountPins</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+        
+        <li>
+          <div class = "CreateUser">
+            <p>CreateUser - PUT : /v2/user/profile <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "CreateUserForm">
+              <thead>
+                <tr><td>sessionid</td><td>username</td><td>email</td><td>lastname</td><td>firstname</td><td>password</td><td>jid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>
+                  <td><input type = "text" class = "username"/></td> 
+                  <td><input type = "text" class = "email"/></td>
+                  <td><input type = "text" class = "lastname"/></td>
+                  <td><input type = "text" class = "firstname"/></td>
+                  <td><input type = "text" class = "password"/></td>
+                  <td><input type = "text" class = "jid"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "CreateUserViewer">CreateUser</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+        
+        <li>
+          <div class = "AddBookmark">
+            <p>AddBookmark - PUT : /v2/user/bookmarks/{productsku} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "AddBookmarkForm">
+              <thead>
+                <tr><td>productsku</td><td>sessionid</td><td>bookmarklocation</td><td>componentid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "productsku"/></td>
+                  <td><input type = "text" class = "sessionid"/></td>                  
+                  <td><input type = "text" class = "bookmarklocation"/></td> 
+                  <td><input type = "text" class = "componentid"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "AddBookmarkViewer">AddBookmark</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+          
+        <li>
+          <div class = "DeleteBookmark">
+            <p>DeleteBookmark - DELETE : /v2/user/bookmarks/{productsku} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "DeleteBookmarkForm">
+              <thead>
+                <tr><td>productsku</td><td>sessionid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "productsku"/></td>
+                  <td><input type = "text" class = "sessionid"/></td>                  
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "DeleteBookmarkViewer">DeleteBookmark</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+       </li>
+        
+       <li>
+          <div class = "AddDevice">
+            <p>AddDevice - PUT : /v2/account/devices <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "AddDeviceForm">
+              <thead>
+                <tr><td>sessionId</td><td>deviceId</td><td>deviceName</td><td>deviceType</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>  
+                  <td><input type = "text" class = "deviceid"/></td>                
+                  <td><input type = "text" class = "devicename"/></td> 
+                  <td><input type = "text" class = "devicetype"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "AddDeviceViewer">AddDevice</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>  
+        
+       <li>
+          <div class = "UpdateDevice">
+            <p>UpdateDevice - POST : /v2/account/devices <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "UpdateDeviceForm">
+              <thead>
+                <tr><td>sessionId</td><td>deviceId</td><td>deviceName</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>  
+                  <td><input type = "text" class = "deviceid"/></td>                
+                  <td><input type = "text" class = "devicename"/></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "UpdateDeviceViewer">UpdateDevice</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>  
+        
+        <li>
+          <div class = "DeleteDevice">
+            <p>DeleteDevice - DELETE : /v2/account/devices <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "DeleteDeviceForm">
+              <thead>
+                <tr><td>sessionid</td><td>deviceid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>  
+                  <td><input type = "text" class = "deviceid"/></td>                
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "DeleteDeviceViewer">DeleteDevice</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+        
+        <li>
+          <div class = "GetAccountDevices">
+            <p>GetAccountDevices - GET : /v2/account/devices <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetAccountDevicesForm">
+              <thead>
+                <tr><td>sessionid</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>  
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetAccountDevicesViewer">GetAccountDevices</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+        
+         <li>
+          <div class = "DeleteBlockedChannels">
+            <p>DeleteBlockedChannels - DELETE : /v2/account/settings/blockedchannels/{channels} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "DeleteBlockedChannelsForm">
+              <thead>
+                <tr><td>channels(comma-list)</td><td>sessionid</td><td>parentalpin</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "channels"/></td>
+                  <td><input type = "text" class = "sessionid"/></td>                  
+                  <td><input type = "text" class = "parentalpin"/></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "DeleteBlockedChannelsViewer">DeleteBlockedChannels</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+        
+        <li>
+          <div class = "DeleteUser">
+            <p>DeleteUser - DELETE : /v2/user/profile <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "DeleteUserForm">
+              <thead>
+                <tr><td>sessionid</td><td>username</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type = "text" class = "sessionid"/></td>
+                  <td><input type = "text" class = "username"/></td> 
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "DeleteUserViewer">DeleteUser</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+        <li>
+          <div class = "GetProviders">
+            <p>GetProviders - GET: /v2/catalog/providers <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetProvidersForm">
+              <thead>
+                <tr></tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetProvidersViewer">GetProviders</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+        <li>
+          <div class = "GetProviderDetails">
+            <p>GetProviderDetails - GET: /v2/catalog/providers/{providerkey} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetProviderDetailsForm">
+              <thead>
+                <tr><td>providerkey</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                	<td><input type = "text" class = "providerkey"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetProviderDetailsViewer">GetProviderDetails</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+        <li>
+          <div class = "GetSubscriptinsBySubKey">
+            <p>GetSubscriptinsBySubKey - GET: /v2/catalog/subscriptions/{sub_key} <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetSubscriptinsBySubKeyForm">
+              <thead>
+                <tr><td>sub_key</td></tr>
+              </thead>
+              <tbody>
+                <tr>
+                	<td><input type = "text" class = "sub_key"/></td>
+                </tr>
+              </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div><pre><code id = "GetSubscriptinsBySubKeyViewer">GetSubscriptinsBySubKey</code></pre></div>
+            <div><p>Response: <a class = 'responseDetails'></a></p></div>
+          </div>            
+        </li>
+        <li>
+          <div class = "GetVodPlayBack">
+            <p>All in One Call <button class = 'call'>Call</button> <button class = 'clear'>Clear</button></p>
+            <table class = "GetVodPlayBackForm">
+               <thead>
+                  <tr><td>username</td><td>password</td><td>pinnumber</td><td>categoryid</td><td>productid</td><td>sku</td></tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td><input type = "text" class = "username"/></td>
+                     <td><input type = "text" class = "password"/></td>
+                     <td><input type = "text" class = "pin"/></td>
+                     <td><input type = "text" class = "categoryid"/></td>
+                     <td><input type = "text" class = "productid"/></td>
+                     <td><input type = "text" class = "productsku"/></td>
+                  </tr>
+               </tbody>
+            </table>  
+            <div><p>Request details: <a class = 'rpcDetails' href="http://www.w3schools.com/">Visit W3Schools</a></p></div>          
+            <div>1<pre><code id = "GetVodPlayBackViewerLogin">Loginoutput</code></pre></div>
+            <div>2<pre><code id = "GetVodPlayBackViewerCat">CategoryOutput</code></pre></div>
+            <div>3<pre><code id = "GetVodPlayBackViewerPurchase">GetPurchaseOutout</code></pre></div>
+            <div>4<pre><code id = "GetVodPlayBackViewerDetail">GetProductDetailOutput</code></pre></div>
+          </div>            
+        </li>
+			</ol>
+		</div>
+	
+	  <script src = "./cisco-sif-api-quickview.js"></script>
+	
+	  <script type = "text/javascript">    	    	    
+	    
+	    function activateGeoLocation() {
+	    }
+	    
+	    function onReady() {     	    	
+	      activateGeoLocation();
+	    };
+	          	    
+		  $(document).ready(function() {		    		    
+			  onReady();
+			});
+	  </script>
+	</body>
+</html>
