@@ -1,0 +1,36 @@
+echo GET Product 
+URL="http://ss-auto-centos-5.cisco.com/opencase/ContentManager/resource/rest/product/1207e782-9cb9-432f-80f7-d6ab6e143ebb"
+curl $URL
+
+echo GET Bundle
+URL="http://ss-auto-centos-5.cisco.com/opencase/ContentManager/resource/rest/bundle/8f3f62bb-7e8c-42e8-b7d5-9e6c552b27d2"
+curl $URL
+
+echo GET feed
+URL="http://ss-auto-centos-5.cisco.com/opencase/ContentManager/resource/rest/feed/1ad305e2-d710-4a1e-b4d3-fd95269afcfa/preview?locale=en_US"
+curl $URL
+
+
+echo Query solr
+URL="http://ss-auto-centos-5.cisco.com/solr.slave/vod-en_US/select/?q=puuid%3A*&version=2.2&start=0&rows=100&indent=on"
+curl $URL
+
+echo Get product info via product UUID
+URL="ss-auto-centos-5.cisco.com/opencase/sm/resource/rest/content?regionId=&q=&count=20&start=0&filters=c_of_puuid:equals:%5B37361bde-8ae8-4805-80e8-05325eea7d5f%5D&sort=&entityType=VOD"
+curl $URL
+echo Clean up solr
+URL="http://admin:admin@ss-auto-centos-5.cisco.com/solr.master/vod-en_US/update"
+DATA="<delete><query>*:*</query></delete>"
+echo Posting "\"$DATA\"" to "\"$URL\"" with commit=true
+curl $URL?commit=true -H "Content-Type: text/xml" --data-binary $DATA
+URL="http://admin:admin@ss-auto-centos-5.cisco.com/solr.slave/vod-en_US/update"
+echo Posting "\"$DATA\"" to "\"$URL\"" with commit=true
+curl $URL?commit=true -H "Content-Type: text/xml" --data-binary $DATA
+URL="http://admin:admin@ss-auto-centos-5.cisco.com/solr.master/admin/cores?action=reload&core=vod-en_US"
+echo Reload solr master
+curl $URL
+URL="http://admin:admin@ss-auto-centos-5.cisco.com/solr.slave/admin/cores?action=reload&core=vod-en_US"
+echo Reload solr slave 
+curl $URL
+echo Complete
+
