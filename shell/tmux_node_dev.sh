@@ -15,7 +15,7 @@ echo "Panes: "
 tmux list-panes
 #choose window
 tmux select-window -t app:dev
-CMD="cd /home/herry/workspace/scripting/node/learning/noderest"
+CMD="cd /home/herry/workspace/noderest"
 tmux send-keys -t 0 "$CMD" C-m
 tmux send-keys -t 1 "$CMD" C-m
 tmux send-keys -t 2 "$CMD" C-m

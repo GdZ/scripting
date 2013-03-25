@@ -1,5 +1,8 @@
 
 var source_url = process.argv[2];
+var video_name = process.argv[3];
+if( video_name == undefined ) video_name = "untitled";
+video_name = "learning/noderest/public/video/" + video_name;
 console.log("YOUKU URL: " + source_url);
 var http = require('http'),util = require('util');
 var url = require('url'),fs=require('fs');
@@ -40,11 +43,12 @@ http.get(options, function(res) {
 }).on('error', function(e) {
    console.log("Got error: " + e.message);
 });
-
+function pad(a,b){return(1e15+a+"").slice(-b)};
 function download_all(list) {
    for(var i=0;i<list.length;i++) {
       var myoptions = url.parse(list[i]);
-      var filename = i.toString() + '.flv';
+      var filename = video_name + '_' + pad(i,2)+ '.flv';
+      console.log("Download filename : " + filename);
       download_one(myoptions,filename);
       //console.log("URL is " + myoptions.host + " path is: " + myoptions.path);
    }

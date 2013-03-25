@@ -43,7 +43,7 @@ server = http.createServer(function(request, response){
 });
 var command_pool = [];
 var total_client = 0;
-server.listen(8000);
+server.listen(1337);
 var listener = io.listen(server);
 listener.set('log level',1);
 listener.sockets.on('disconnect', function(client) {

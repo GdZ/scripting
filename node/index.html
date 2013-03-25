@@ -1,0 +1,119 @@
+<html>
+<head>
+	<script type="text/javascript" src="scripts/jwplayer.js"></script>
+	<script type="text/javascript" src="scripts/swfobject.js"></script>
+	<script type="text/javascript" src="scripts/jquery.js"></script>
+	<script type="text/javascript" src="scripts/Silverlight.js"></script>
+	<script type="text/javascript" src="scripts/QuickTime.js"></script>
+	<script type="text/javascript" src="scripts/browserdetect.js"></script>
+	<script type="text/javascript" src="scripts/script.js"></script>	
+</head>
+<body onload='loaded()'>
+<div id="whole">
+	<div id="save_div">
+        <span id="save_text">Copy and save the text below as an XML file:</span>
+		<a href="#" id="save_close">(close)</a><br/>
+        <textarea id="save_box"></textarea>
+    </div>
+	<div id="headerBanner">
+		<div id="title">HTML Player</div>
+		<div id="banner_help"><a href="help.html" class="banner_link">Help</a></div>
+		<div id="banner_quickstart"><a href="#" id="banner_quickstart_link" class="banner_link">Quick Start</a></div>
+	</div>
+	<div id="library" class="box">
+		<p align='center'><span class="bold">Video Library</span></p>
+		<input type="file" id="lib_import_file" size="32"/><br/>
+		<input type="text" id="lib_single_url"/>
+		<button id="lib_add_single"> Add Single URL</button>
+		<div id="lib_box_div">
+			<select id="lib_box" class="wide" multiple="multiple" size="17"></select>
+		</div>
+		
+		<div id="settings">
+			<span class="bold">Settings</span><br/>
+			Autostart: <input id="settings_auto" type="checkbox" checked="checked"/>
+			<br/>
+			Duration:
+			<input id="settings_dur" disabled="disabled"></input>
+			<select id="settings_dur_type">
+				<option> Entire Video </option>
+				<option> Seconds </option>
+				<option> Minutes </option>
+				<option> Hours </option>
+			</select>
+			<br/>
+			Video Player: 
+			<select id="settings_player">
+				<option>Silverlight</option>
+				<option>HTML5</option>
+				<option>JW</option>
+				<option>VLC</option>
+				<option>QuickTime</option>
+				<option>Windows Media</option>
+			</select>
+			<br/>
+		</div>
+		<div id="container_html5"></div>
+		<div id="container_sl">
+			SmoothStreaming <input id="container_sl_smoothstreaming" type="checkbox"/>
+			<br/>
+			Player Source <select id="container_sl_playersource">
+				<option>MediaSource</option>
+				<option>FeedSource</option>
+				<option>RefSource</option>
+				<option>PlayListSource</option>
+			</select>
+		</div>
+		<div id="container_jw">
+			Quality Monitor <input id="container_jw_qm" type="checkbox" checked="checked"/>
+			<br/>
+			Provider: <select id="container_jw_provider">
+				<option>http</option>
+				<option>rtmp</option>
+			</select>
+			Stream Name: <input type="text" size="10" id="container_jw_streamer" disabled="disabled">
+		</div>
+		<div id="container_vlc"></div>
+		<button id="lib_add">Add to Playlist</button>
+		<button id="lib_del">Delete</button>
+		<button id="lib_save">Save Library</button>
+	</div>
+	<div id="playlist" class="box">
+		<p align='center'><span class="bold">Video Playlist</span></p>
+		<div id="input">
+			<input type="file" id="playlist_import_file" size="32"/><br/>
+			<button id="playlist_play"> Play </button>
+			<button id="playlist_prev"> Prev </button>
+			<button id="playlist_next"> Next </button>
+			Repeat: <input id="playlist_repeat" type="checkbox"/>
+			Loop: <input id="playlist_loop" type="checkbox" checked="checked"/>
+		</div><br/>
+		<div id="playlist_box"></div><br/>
+		<button id="playlist_save"> Save Playlist </button>
+	</div>
+	<div id="out" class="box">
+		<div id="container"></div>
+	</div>
+	<div id="controls" class="box">
+		<table id="controls_table"><tr>
+			<td><button id="controls_play">Play</button></td>
+			<td><button id="controls_pause">Pause</button></td>
+			<td><button id="controls_stop">Stop</button></td>
+			<td><button id="controls_seek0">Seek-10s</button></td>
+			<td><button id="controls_seek1">Seek+10s</button></td>
+		</tr></table>
+	</div>
+	<div id="stats" class="box">
+		<div id="settings_current"></div>
+		<div id="settings_selected"></div>
+		<div id="stats_box_div">
+			<textarea id="stats_box" rows=12 readonly="readonly"></textarea>
+		</div>
+		<input type="text" id="stats_timer_input" value="1000" size="15"/>
+		<button id="stats_timer_button">Set Display Rate</button>
+	</div>
+	<div id="footerBanner">
+	</div>
+</div>
+</body>
+<html>

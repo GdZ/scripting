@@ -1,0 +1,22 @@
+------WebKitFormBoundarypCiI7cP3NAOfXmZy
+Content-Disposition: form-data; name="title"
+
+dfdsf
+------WebKitFormBoundarypCiI7cP3NAOfXmZy
+Content-Disposition: form-data; name="upload"; filename="chromedriver.log"
+Content-Type: application/octet-stream
+
+
+------WebKitFormBoundarypCiI7cP3NAOfXmZy--
+
+
+------WebKitFormBoundaryKZ63SbEwIPYwKiIZ
+Content-Disposition: form-data; name="title"
+
+img
+------WebKitFormBoundaryKZ63SbEwIPYwKiIZ
+Content-Disposition: form-data; name="upload"; filename="Belgium.png"
+Content-Type: image/png
+
+
+------WebKitFormBoundaryKZ63SbEwIPYwKiIZ--
