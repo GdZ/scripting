@@ -3,28 +3,39 @@
 //http://userscripts.org/scripts/review/131926
 //http://stackoverflow.com/questions/1527803/generating-random-numbers-in-javascript-in-a-specific-range
 var request = require('request');
-var url = "http://v.youku.com/player/getPlayList/VideoIDS/XNTQxOTIzMTcy/timezone/+08/version/5/source/video?n=3&ran=5061&password="
-var options = {};
-options.url = url;
-options.proxy = 'http://222.197.188.39:8080';
+
+//Provided by User
+var vid = "XNTQxOTIzMTcy";
 var stream_t = "mp4";
-var seed = "";
-var urls = {};
+
+//
+var youku_f_link = "http://f.youku.com/player/getFlvPath/sid/";
+var url = "http://v.youku.com/player/getPlayList/VideoIDS/" + vid + "/timezone/+08/version/5/source/video?n=3&ran=5061&password="
+var options = {
+   url : url,
+   proxy : 'http://222.197.188.39:8080'
+};
+
+var urls = {
+   vTitle : "",
+   vList : []
+};
 request(options, function (error, response, body) {
   if (!error && response.statusCode == 200) {
-    //console.log(body);
+    console.log(body);
     var res = JSON.parse(body);
     var data = res.data[0];
     console.log(data.seed);
     console.log(data.title);
+    urls.vTitle = data.title;
     console.log(data.videoid);
-    seed=data.seed;
     var segs=data.segs[stream_t];
     var fileids = data.streamfileids[stream_t];
-    getMediaUrls(fileids,seed,segs);
-  }
+    getMediaUrls(fileids,data.seed,segs);
+  } else {
+    console.log("ERR" + error);
+   }
 });
-var youku_f_link = "http://f.youku.com/player/getFlvPath/sid/";
 
 function getMediaUrls (fids,seed,segs) {
    var fullfids = getFileId(fids,seed);
@@ -36,6 +47,7 @@ function getMediaUrls (fids,seed,segs) {
       var converted_fid = fullfids.substring(0,8) + part_num_hex + fullfids.substring(10);
       var request_url = youku_f_link + sid + '_' + ('0' + video_part_num).slice(-2) + '/st/' + stream_t + '/fileid/' + converted_fid + '?K=' + key;
       console.log(request_url);
+      urls.vList.push(request_url);
    }
 }
 
