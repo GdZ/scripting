@@ -45,21 +45,21 @@ console.log(num);
 // so num is set to 2;
 for (var i=0; i<3; ++i) {
    var num = i;
-   setTimeout(function() {  console.log(num); }, 10);
+   setTimeout(function() {  console.log(num); }, 10);//2 2 2
 }
 //using 'with' statement, the block is created in new scope. 
 for (var j=0; j<3; ++j) {
    // variables introduced in this statement 
    // are scoped to the block following it.
    with ({num :j}) {
-      setTimeout(function() { console.log(num); }, 10);
+      setTimeout(function() { console.log(num); }, 10);// 0 1 2
    }
 }
 
 // create new scope
 for (var ii=0; ii<3; ++ii) {
    (function(num) {
-      setTimeout(function() { console.log(num); }, 10);
+      setTimeout(function() { console.log(num); }, 10);//0 1 2
    })(ii);
 }
 
@@ -92,7 +92,7 @@ console.log(x); // 10
    //Using with is not recommended, and is forbidden in ECMAScript 5 strict mode. The recommended alternative is to assign the object whose properties you want to access to a temporary variable.
 
    with ({z: 50,y:15}) {
-      console.log(w, x, y , z); // 40, 10, 30, 50
+      console.log(w, x, y , z); // 40, 10, 15, 50, NOT 40,10,30,50
    }
 
    // after "with" object is removed
@@ -111,7 +111,8 @@ console.log(x); // 10
 (function test() { 
    function foo() {
       //console.log(this);
-   }
+      console.log('inside foo');
+   };
 
    // caller activates "foo" (callee) and
    // provides "this" for the callee
