@@ -1,12 +1,13 @@
+require 'rubygems'
 require "selenium-webdriver"
 caps = Selenium::WebDriver::Remote::Capabilities.phantomjs
 caps['browserName'] =  "phantomjs"
 #Ghostdriver would be crash at this time. 
-#driver = Selenium::WebDriver.for(:remote,:url=> "http://171.71.46.197:9517",:desired_capabilities => caps)
+driver = Selenium::WebDriver.for(:remote,:url=> "http://127.0.0.1:9517",:desired_capabilities => caps)
 #driver = Selenium::WebDriver.for :firefox
 
 #Chrome
-driver = Selenium::WebDriver.for(:remote,:url=> "http://171.71.47.34:4444/wd/hub",:desired_capabilities => :chrome)
+#driver = Selenium::WebDriver.for(:remote,:url=> "http://171.71.47.34:4444/wd/hub",:desired_capabilities => :chrome)
 driver.manage.timeouts.implicit_wait = 3
 url = "http://www.kbb.com/used-cars/"
 myyear = '2001'
@@ -24,6 +25,7 @@ options.each do |el|
         break
     end
 end
+sleep 2
 mymaker = 'Honda'
 select_maker = nocpo.find_element(:name,'manufacturername')
 options = select_maker.find_elements(:tag_name,"option")
@@ -51,7 +53,7 @@ options.each do |el|
         break
     end
 end
-
+sleep 1
 gogo = nocpo.find_element(:id, 'ymm-submit')
 gogo.click()
 sleep(3)
@@ -60,6 +62,12 @@ frames = driver.find_elements(:tag_name,'iframe')
 frames.each do |each_frame|
 puts each_frame.inspect
 end
+wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+wait.until {
+  driver.execute_script("return document.readyState;") == "complete" 
+}
+puts "ready"
+driver.save_screenshot("./screen.png")
 zipcodeinput = driver.find_element(:name,'selectedZipCode')
 zipcodeinput.send_keys('95131')
 zipsubmit = driver.find_element(:id,'enterzipsubmit')
@@ -77,4 +85,5 @@ driver.find_element(:id,'Price-type-private-party').click()
 driver.find_element(:css,'a[href="/honda/civic/2001-honda-civic/ex-sedan-4d/?condition=very-good&vehicleid=4411&intent=buy-used&category=sedan&pricetype=retail"]').click()
 
 # print something
+driver.save_screenshot("./screen2.png")
 driver.quit
