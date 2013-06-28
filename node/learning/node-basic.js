@@ -95,3 +95,25 @@ function launcher() {
    }
 }
 launcher();
+
+
+function times2(x,callback) {
+   setTimeout(function() {
+      callback(x * 2)
+      }, 500);
+}
+function plus3(x,callback) {
+   setTimeout(function() {
+      callback(x + 3);
+      }, 500);
+}
+function displayResult(z) {
+   console.log("The results is = ", z);
+}
+function plus3AndThenTimes2(x,callback) {
+   plus3(x, function(y){
+      times2(y,callback);
+});
+}
+
+plus3AndThenTimes2(5,displayResult);

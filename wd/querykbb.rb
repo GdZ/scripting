@@ -3,7 +3,7 @@ require "selenium-webdriver"
 caps = Selenium::WebDriver::Remote::Capabilities.phantomjs
 caps['browserName'] =  "phantomjs"
 #Ghostdriver would be crash at this time. 
-driver = Selenium::WebDriver.for(:remote,:url=> "http://127.0.0.1:9517",:desired_capabilities => caps)
+driver = Selenium::WebDriver.for(:remote,:url=> "http://171.71.47.34:9517",:desired_capabilities => caps)
 #driver = Selenium::WebDriver.for :firefox
 
 #Chrome

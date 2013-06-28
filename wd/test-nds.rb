@@ -1,3 +1,4 @@
+require 'rubygems'
 require "selenium-webdriver"
 driver = Selenium::WebDriver.for(:firefox, :profile => "NDS")
 url = "https://ciscovpn.nds.com"
