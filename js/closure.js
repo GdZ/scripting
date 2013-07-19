@@ -137,4 +137,22 @@ console.log(x); // 10
    console.log(8);
    var otherFoo = bar.baz;
    otherFoo(); // again global object
-}) ()
+}) ();
+
+
+console.log ("----before the start ---");
+
+(function start() {
+   console.log ("----In the start ---");
+})();
+
+console.log ("----after the start ---");
+
+var app = {};
+app.foo = {
+   appfoo: function () {
+      console.log("in side of app.foo appfoo");
+   },
+   
+};
+app.foo.appfoo();

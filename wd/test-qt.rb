@@ -2,8 +2,8 @@ require 'rubygems'
 require "selenium-webdriver"
 require "json"
 require 'net/http'
-#page = "http://www.w3.org/2010/05/video/mediaevents.html"
-page = "http://171.71.46.197/TNC/TNCTestSuite/jm.html"
+page = "http://www.w3.org/2010/05/video/mediaevents.html"
+#page = "http://171.71.46.197/TNC/TNCTestSuite/jm.html"
 target = "http://171.71.47.34:9517"
 uri = URI.parse(target)
 http = Net::HTTP.new(uri.host,uri.port)
@@ -24,7 +24,7 @@ end
 caps = Selenium::WebDriver::Remote::Capabilities.chrome
 
 caps['browserStartWindow'] =  '*'
-caps['loggingPref'] =  { "client" => "ALL","driver" => "ALL"}
+caps['loggingPref'] =  { "client" => "ALL","browser" => "ALL","driver" => "ALL"}
 
 driver = Selenium::WebDriver.for(:remote,:url=> target,:desired_capabilities => caps)
 
@@ -35,6 +35,9 @@ driver = Selenium::WebDriver.for(:remote,:url=> target,:desired_capabilities => 
 driver.navigate.to page 
 driver.navigate.refresh
 sleep 5
-driver.save_screenshot("./stb.png")
+logs = driver.manage.logs()
+log_type = logs.getAvailableLogTypes;
+puts log_type
+#driver.save_screenshot("./stb.png")
 #driver.quit
 
